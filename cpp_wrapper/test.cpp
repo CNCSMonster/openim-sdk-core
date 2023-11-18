@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include "openimsdkcpp.h"
 using namespace std;
 
 std::function<int(int,int)> show(const std::function<int(int,int)>& f){
@@ -8,13 +9,7 @@ std::function<int(int,int)> show(const std::function<int(int,int)>& f){
   };
 }
 
-
 // wrapp CB_S
-static std::function<void(char*)> _wrapper_cpp_function(const std::function<void(std::string)>& cpp_function) {
-  return [cpp_function](char* c_str){
-    cpp_function(c_str);
-  };
-}
 static std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
   return [cpp_function](char* c_str){
     cpp_function(c_str);
@@ -63,14 +58,9 @@ static std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(cons
 
 
 
+
+
+
 int main(){
-  std::function<int(int,int)> f=[](int a,int b) ->int {
-    return a+b;
-  };
-  auto g=show(f);
-  f=[](int a,int b) ->int{
-    return a-b;
-  };
-  cout<<g(1,2)<<endl;
-  cout<<f(1,2)<<endl;
+ 
 } 

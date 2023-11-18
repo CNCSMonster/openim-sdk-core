@@ -31,13 +31,7 @@ void SetConversationListener(const std::function<void(int, const std::string &)>
 // extern void set_conversation_listener(CB_I_S cCallback);
 ```
 
-### 2\. 可能的纠错
-
-转化出来的cpp函数声明中不应该使用CB_I,CB_S_I_S_S之类的函数参数定义:
-CB_I 对应 const std::function<void(int)>&
-CB_S 对应 const std::function<void(const std::string& )>&
-
-### 3\. 继续
+### 2\. 继续声明剩余的对象方法声明
 
 继续转化如下内容:
 
@@ -262,3 +256,6 @@ CB_S 对应 const std::function<void(const std::string& )>&
 // //
 // extern void is_join_group(CB_S_I_S_S cCallback, char* operationID, char* cGroupID);
 ```
+
+
+### 3.给出对象方法实现

@@ -67,5 +67,6 @@
         "locale": "cpp",
         "__functional_03": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

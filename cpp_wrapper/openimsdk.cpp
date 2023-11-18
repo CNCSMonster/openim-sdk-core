@@ -201,17 +201,11 @@ typedef void (*CB_S_I_S_S_I)(char *,int,char *,char *,int);
 
 
 // wrapp CB_S
-static std::function<void(char*)> _wrapper_cpp_function(const std::function<void(std::string)>& cpp_function) {
-  return [cpp_function](char* c_str){
-    cpp_function(c_str);
-  };
-}
 static std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
   return [cpp_function](char* c_str){
     cpp_function(c_str);
   };
 }
-
 // wrapp CB_I_S
 static std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
 {
@@ -219,21 +213,10 @@ static std::function<void(int,char*)> _wrapper_cpp_function(const std::function<
     cpp_function(code,c_str);
   };
 }
-static std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,std::string)>& cpp_function) {
-  return [cpp_function](int code ,char* c_str)->void {
-    cpp_function(code,c_str);
-  };
-}
-
 
 // wrapp CB_S_I_S_S
 static std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
 {
-  return [cpp_function](char* operationID,int code,char* c_str,char* c_str2) -> void {
-    cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2));
-  };
-}
-static std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(std::string,int,std::string,std::string)>& cpp_function) {
   return [cpp_function](char* operationID,int code,char* c_str,char* c_str2) -> void {
     cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2));
   };
@@ -246,53 +229,19 @@ static std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(cons
     cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
   };
 }
-static std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(const std::function<void(std::string,int,std::string,std::string,int)>& cpp_function) {
-  return [cpp_function](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
-    cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
-  };
-}
-
 
 
 class OpenIMManager
 {
 private:
-// default callbacks
-// we use 
+// static 
   static std::function<void(int,char*)> init_sdk_callback;
-  std::function<void(char*)> printCallback;
-  std::function<void(int, char*)> groupListenerCallback;
-  std::function<void(int, char*)> conversationListenerCallback;
-  std::function<void(int, char*)> advancedMsgListenerCallback;
-  std::function<void(int, char*)> batchMsgListenerCallback;
-  std::function<void(int, char*)> userListenerCallback;
-  std::function<void(int, char*)> friendListenerCallback;
-  std::function<void(int, char*)> customBusinessListenerCallback;
-  std::function<void(char*, int, char*, char*)> loginCallback;
-  std::function<void(char*, int, char*, char*)> logoutCallback;
-  std::function<void(char*, int, char*, char*, int)> sendMessageCallback;
-  std::function<void(char*, int, char*, char*)> getUsersInfoCallBack;
-  std::function<void(char*, int, char*, char*)> getUsersInfoFromSrvCallBack;
-  std::function<void(char*, int, char*, char*)> setSelfInfoCallBack;
-  std::function<void(char*, int, char*, char*)> getSelfUserInfoCallBack;
-  std::function<void(char*, int, char*, char*)> updateMsgSenderInfoCallBack;
-  std::function<void(char*, int, char*, char*)> subscribeUsersStatusCallBack;
-  std::function<void(char*, int, char*, char*)> unsubscribeUsersStatusCallBack;
-  std::function<void(char*, int, char*, char*)> getSubscribeUsersStatusCallBack;
-  std::function<void(char*, int, char*, char*)> getUserStatusCallBack;
-  std::function<void(char*, int, char*, char*)> getSpecifiedFriendsInfoCallBack;
-  std::function<void(char*, int, char*, char*)> getFriendListCallBack;
-  std::function<void(char*, int, char*, char*)> getFriendListPageCallBack;
-  std::function<void(char*, int, char*, char*)> searchFriendsCallBack;
-  std::function<void(char*, int, char*, char*)> checkFriendCallBack;
-  std::function<void(char*, int, char*, char*)> addFriendCallBack;
-  std::function<void(char*, int, char*, char*)> setFriendRemarkCallBack;
-  std::function<void(char*, int, char*, char*)> deleteFriendCallBack;
-  std::function<void(char*, int, char*, char*)> getFriendApplicationListAsRecipientCallBack;
-  std::function<void(char*, int, char*, char*)> getFriendApplicationListAsApplicantCallBack;
-  std::function<void(char*, int, char*, char*)> acceptFriendApplicationCallBack;
-  std::function<void(char*, int, char*, char*)> refuseFriendApplicationCallBack;
-  std::function<void(char*, int, char*, char*)> addBlackCallBack;
+  
+  //建立各种函数池,用来保存回调函数,规定回调函数只能执行最多一次,执行完成之后
+  static std::map<std::string,std::function<void(int,char*)>> init_sdk_callback_pool;
+
+
+
 
 public:
 
@@ -335,15 +284,7 @@ public:
   void SetFriendListener(const std::function<void(int, const std::string &)>& friendListenerCallback);
 
   // set custom business listener
-  // set custom business listener
   void SetCustomBusinessListener(const std::function<void(int, const std::string &)>& customBusinessListenerCallback);
-
-  // initialize SDK
-  GoUint8 InitSDK(const std::function<void(int, const std::string &)>& initSDKCallback, char* operationID, char* config);
-  GoUint8 InitSDK(const std::function<void(int, std::string)>& initSDKCallback, char* operationID, char* config);
-
-  // uninitialize SDK
-  void UnInitSDK(const std::string& operationID);
 
   // login
   void Login(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& loginCallback, const std::string& operationID, const std::string& uid, const std::string& token);
@@ -432,10 +373,10 @@ public:
   std::string CreateForwardMessage(const std::string& operationID, const std::string& m);
 
   // get all conversation list
-  void GetAllConversationList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
-
+  void GetAllConversationList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& getAllConversationListCallback, const std::string& operationID);
+  
   // get advanced history message list
-  void GetAdvancedHistoryMessageList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& getMessageOptions);
+  void GetAdvancedHistoryMessageList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& getAdvancedHistoryCallback , const std::string& operationID, const std::string& getMessageOptions);
 
   // send message
   void SendMessage(const std::function<void(const std::string&, int, const std::string&, const std::string&, int)>& callback, const std::string& operationID, const std::string& message, const std::string& recvID, const std::string& groupID, const std::string& offlinePushInfo);
@@ -494,8 +435,127 @@ public:
   // set friend remark
   void SetFriendRemark(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDRemark);
 
-  
+  // delete friend
+  void DeleteFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& friendUserID);
+
+  // get friend application list as recipient
+  void GetFriendApplicationListAsRecipient(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // get friend application list as applicant
+  void GetFriendApplicationListAsApplicant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // accept friend application
+  void AcceptFriendApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDHandleMsg);
+
+  // refuse friend application
+  void RefuseFriendApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDHandleMsg);
+
+  // add black
+  void AddBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& blackUserID);
+
+  // get black list
+  void GetBlackList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // remove black
+  void RemoveBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& removeUserID);
 
 
+  // // =====================================================group===============================================
+  // // 
+
+  // create group
+  void CreateGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupReqInfo);
+
+  // join group
+  void JoinGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reqMsg, int joinSource);
+
+  // quit group
+  void QuitGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
+
+  // dismiss group
+  void DismissGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
+
+  // change group mute
+  void ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int isMute);
+
+  // change group member mute
+  void ChangeGroupMemberMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userID, int mutedSeconds);
+
+  // SetGroupMemberRoleLevel sets the role level of a group member
+  void SetGroupMemberRoleLevel(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userID, int roleLevel);
+
+  // SetGroupMemberInfo sets the information of a group member
+  void SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupMemberInfo);
+
+  // GetJoinedGroupList retrieves the list of joined groups
+  void GetJoinedGroupList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // GetSpecifiedGroupsInfo retrieves the information of specified groups
+  void GetSpecifiedGroupsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupIDList);
+
+  // SearchGroups searches for groups
+  void SearchGroups(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& searchParam);
+
+  // SetGroupInfo sets the information of a group
+  void SetGroupInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupInfo);
+
+  // SetGroupVerification sets the verification mode of a group
+  void SetGroupVerification(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int verification);
+
+
+  // SetGroupLookMemberInfo sets the member information visibility of a group
+  void SetGroupLookMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int rule);
+
+  // SetGroupApplyMemberFriend sets the friend rule for group applicants
+  void SetGroupApplyMemberFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int rule);
+
+  // GetGroupMemberList retrieves the list of group members
+  void GetGroupMemberList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int filter, int offset, int count);
+
+  // GetGroupMemberOwnerAndAdmin retrieves the owner and admin members of a group
+  void GetGroupMemberOwnerAndAdmin(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
+
+  // GetGroupMemberListByJoinTimeFilter retrieves the list of group members filtered by join time
+  void GetGroupMemberListByJoinTimeFilter(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int offset, int count, long long int joinTimeBegin, long long int joinTimeEnd, const std::string& filterUserIDList);
+
+  // GetSpecifiedGroupMembersInfo retrieves the information of specified group members
+  void GetSpecifiedGroupMembersInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userIDList);
+
+  // KickGroupMember kicks group members
+  void KickGroupMember(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDList);
+
+  // TransferGroupOwner transfers the ownership of a group
+  void TransferGroupOwner(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& newOwnerUserID);
+
+  // InviteUserToGroup invites users to a group
+  void InviteUserToGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDList);
+
+  // GetGroupApplicationListAsRecipient retrieves the group application list as a recipient
+  void GetGroupApplicationListAsRecipient(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // GetGroupApplicationListAsApplicant retrieves the group application list as an applicant
+  void GetGroupApplicationListAsApplicant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+
+  // AcceptGroupApplication accepts a group application
+  void AcceptGroupApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& fromUserID, const std::string& handleMsg);
+
+  // RefuseGroupApplication refuses a group application
+  void RefuseGroupApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& fromUserID, const std::string& handleMsg);
+
+  // SetGroupMemberNickname sets the nickname of a group member
+  void SetGroupMemberNickname(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userID, const std::string& groupMemberNickname);
+
+  // SearchGroupMembers searches for group members
+  void SearchGroupMembers(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& searchParam);
+
+  // IsJoinGroup checks if the user has joined a group
+  void IsJoinGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
 
 };
+
+//set print
+void OpenIMManager::SetPrint(const std::function<void(const std::string&)>& printCallBack)
+{
+  this->printCallBack = _wrapper_cpp_function(printCallBack);
+  set_print((CB_S)((this->printCallBack).target<void(*)(const std::string&)>()));
+}
