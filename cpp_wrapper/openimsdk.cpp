@@ -1,6 +1,10 @@
-#include "openimsdk.h"
-#include <functional>
 
+#include <functional>
+#include <memory>
+
+extern "C" {
+  #include "openimsdk.h"
+}
 
 // extern void set_print(CB_S print);
 // extern void set_group_listener(CB_I_S cCallback);
@@ -194,73 +198,128 @@
 
 
 
-typedef void (*CB_S)(char *);
-typedef void (*CB_I_S)(int,char *);
-typedef void (*CB_S_I_S_S)(char *,int,char *,char *);
-typedef void (*CB_S_I_S_S_I)(char *,int,char *,char *,int);
+// typedef void (*CB_S)(char *);
+// typedef void (*CB_I_S)(int,char *);
+// typedef void (*CB_S_I_S_S)(char *,int,char *,char *);
+// typedef void (*CB_S_I_S_S_I)(char *,int,char *,char *,int);
 
 
-// wrapp CB_S
-static std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
-  return [cpp_function](char* c_str){
-    cpp_function(c_str);
-  };
-}
-// wrapp CB_I_S
-static std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
-{
-  return [cpp_function](int code ,char* c_str)->void {
-    cpp_function(code,c_str);
-  };
-}
 
-// wrapp CB_S_I_S_S
-static std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
-{
-  return [cpp_function](char* operationID,int code,char* c_str,char* c_str2) -> void {
-    cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2));
-  };
-}
+namespace {
+  // wrapp CB_S
+  std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+    return [cpp_function](char* c_str){
+      cpp_function(c_str);
+    };
+  }
+  // wrapp CB_I_S
+  std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  {
+    return [cpp_function](int code ,char* c_str)->void {
+      cpp_function(code,c_str);
+    };
+  }
+  // wrapp CB_S_I_S_S
+  std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  {
+    return [cpp_function](char* operationID,int code,char* c_str,char* c_str2) -> void {
+      cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2));
+    };
+  }
+  // wrapp CB_S_I_S_S_I
+  std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  {
+    return [cpp_function](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
+      cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+    };
+  }
 
-// wrapp CB_S_I_S_S_I
-static std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
-{
-  return [cpp_function](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
-    cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+  template<typename Func> 
+  struct CallOnceWrapper {
+    std::function<Func> f;
   };
+  // wrapp function to onetime
+  // wrapp CB_S to CallOnce
+  std::function<void(char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+    CallOnceWrapper* callonceWrapper =new CallOnceWrapper();
+    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
+    return [callonceWrapper](char* c_str){
+      callonceWrapper->f(c_str);
+      delete callonceWrapper;
+    };
+  }
+  // wrapp CB_I_S to CallOnce
+  std::function<void(int,char*)> _wrapper_callonce_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  {
+    CallOnceWrapper callonceWrapper =new CallOnceWrapper();
+    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
+    return [callonceWrapper](int code ,char* c_str)->void {
+      callonceWrapper->f(code,c_str);
+      delete callonceWrapper;
+    };
+  }
+  // wrapp CB_S_I_S_S to CallOnce
+  std::function<void(char*,int,char*,char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  {
+    CallOnceWrapper callonceWrapper =new CallOnceWrapper();
+    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
+    return [callonceWrapper](char* operationID,int code,char* c_str,char* c_str2) -> void {
+      callonceWrapper->f(std::string(operationID),code,std::string(c_str),std::string(c_str2));
+      delete callonceWrapper;
+    };
+  }
+  // wrapp CB_S_I_S_S_I to CallOnce
+  std::function<void(char*,int,char*,char*,int)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  {
+    CallOnceWrapper callonceWrapper =new CallOnceWrapper();
+    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
+    return [callonceWrapper](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
+      callonceWrapper->f(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+      delete callonceWrapper;
+    };
+  }
 }
 
 
 class OpenIMManager
 {
 private:
-// static 
-  static std::function<void(int,char*)> init_sdk_callback;
-  
-  //建立各种函数池,用来保存回调函数,规定回调函数只能执行最多一次,执行完成之后
-  static std::map<std::string,std::function<void(int,char*)>> init_sdk_callback_pool;
-
-
+  std::function<void(int,char*)> init_sdk_callback;
+  std::function<void(const std::string&)> print_callback;
+  std::function<void(int,const std::string&)> group_listener_callback;
+  std::function<void(int,const std::string&)> conversation_listener_callback;
+  std::function<void(int,const std::string&)> advanced_msg_listener_callback;
+  std::function<void(int,const std::string&)> batch_msg_listener_callback;
+  std::function<void(int,const std::string&)> user_listener_callback;
+  std::function<void(int,const std::string&)> friend_listener_callback;
+  std::function<void(int,const std::string&)> custom_business_listener_callback;
 
 
 public:
 
+  // instance pattern
+  static OpenIMManager& GetInstance()
+  {
+    static OpenIMManager instance;
+    return instance;
+  }
+
   //must be called before use sdk
-  static GoInt8 InitSDK(const std::function<void(int, std::string)>& cCallback,const std::string& operationID,const std::string& config)
+  GoInt8 InitSDK(const std::function<void(int, std::string)>& cCallback,const std::string& operationID,const std::string& config)
   {
     char* operationID_cs=const_cast<char*>(operationID.c_str());
     char* config_cs=const_cast<char*>(config.c_str());
-    init_sdk_callback=_wrapper_cpp_function(cCallback);
-    return init_sdk((CB_I_S)(cCallback.target<void(*)(int,char *)>()),operationID_cs , config_cs);
+    this->init_sdk_callback=_wrapper_cpp_function(cCallback);
+    return init_sdk((CB_I_S)(this->init_sdk_callback.target<void(*)(int,char *)>()),operationID_cs , config_cs);
   }
-  static void UnInitSDK(const std::string& operationID){
-    return un_init_sdk(const_cast<char*>(operationID.c_str()));
+  void UnInitSDK(const std::string& operationID){
+    char* operationID_cs=const_cast<char*>(operationID.c_str());
+    return un_init_sdk(operationID_cs);
   }
-
-
-  // default constructor
-  OpenIMManager(){}
-  ~OpenIMManager(){}
+  
+  // ban default constructor and destructor
+  OpenIMManager()=delete
+  ~OpenIMManager()=delete
 
   // set print
   void SetPrint(const std::function<void(const std::string&)>& printCallBack);
@@ -553,9 +612,49 @@ public:
 
 };
 
-//set print
+// // ===================================================== set listener ===============================================
+// impl for set listener, this callback function will be keep in memory,until call SetXXXListener again
 void OpenIMManager::SetPrint(const std::function<void(const std::string&)>& printCallBack)
 {
   this->printCallBack = _wrapper_cpp_function(printCallBack);
   set_print((CB_S)((this->printCallBack).target<void(*)(const std::string&)>()));
 }
+void OpenIMManager::SetAdvancedMsgListener(const std::function<void(int, const std::string &)>& advancedMsgListenerCallback)
+{
+  this->advancedMsgListenerCallback = _wrapper_cpp_function(advancedMsgListenerCallback);
+  set_advanced_msg_listener((CB_I_S)((this->advancedMsgListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetBatchMsgListener(const std::function<void(int, const std::string &)>& batchMsgListenerCallback)
+{
+  this->batchMsgListenerCallback = _wrapper_cpp_function(batchMsgListenerCallback);
+  set_batch_msg_listener((CB_I_S)((this->batchMsgListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetConversationListener(const std::function<void(int, const std::string &)>& conversationListenerCallback)
+{
+  this->conversationListenerCallback = _wrapper_cpp_function(conversationListenerCallback);
+  set_conversation_listener((CB_I_S)((this->conversationListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetCustomBusinessListener(const std::function<void(int, const std::string &)>& customBusinessListenerCallback)
+{
+  this->customBusinessListenerCallback = _wrapper_cpp_function(customBusinessListenerCallback);
+  set_custom_business_listener((CB_I_S)((this->customBusinessListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetFriendListener(const std::function<void(int, const std::string &)>& friendListenerCallback)
+{
+  this->friendListenerCallback = _wrapper_cpp_function(friendListenerCallback);
+  set_friend_listener((CB_I_S)((this->friendListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetGroupListener(const std::function<void(int, const std::string &)>& groupListenerCallback)
+{
+  this->groupListenerCallback = _wrapper_cpp_function(groupListenerCallback);
+  set_group_listener((CB_I_S)((this->groupListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+void OpenIMManager::SetUserListener(const std::function<void(int, const std::string &)>& userListenerCallback)
+{
+  this->userListenerCallback = _wrapper_cpp_function(userListenerCallback);
+  set_user_listener((CB_I_S)((this->userListenerCallback).target<void(*)(int,const std::string&)>()));
+}
+
+
+
+
