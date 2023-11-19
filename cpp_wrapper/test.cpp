@@ -57,10 +57,6 @@ static std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(cons
 }
 
 
-
-
-
-
 int main(){
  
 } 
