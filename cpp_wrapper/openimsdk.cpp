@@ -295,7 +295,6 @@ private:
   std::function<void(int,const std::string&)> friend_listener_callback;
   std::function<void(int,const std::string&)> custom_business_listener_callback;
 
-
 public:
 
   // instance pattern
@@ -474,7 +473,7 @@ public:
 
   // // =====================================================friend===============================================
   // //
-  
+
   // get specified friends info
   void GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList);
 
@@ -537,7 +536,7 @@ public:
   void DismissGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
 
   // change group mute
-  void ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int isMute);
+  void ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, bool isMute);
 
   // change group member mute
   void ChangeGroupMemberMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userID, int mutedSeconds);
@@ -688,7 +687,7 @@ std::string OpenIMManager::GetLoginUser()
 {
   char* user=get_login_user();
   std::string user_str(user);
-  delete
+  free(user);
   return get_login_user();
 }
 
@@ -982,7 +981,7 @@ void OpenIMManager::GetAllConversationList(const std::function<void(const std::s
 {
   auto getAllConversationListCallback= _wrapper_callonce_cpp_function(getAllConversationListCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_all_conversation_list((CB_S_I_S_S)((this->getAllConversationListCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_all_conversation_list((CB_S_I_S_S)((getAllConversationListCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
 }
 
 // get advanced history message list
@@ -991,7 +990,7 @@ void OpenIMManager::GetAdvancedHistoryMessageList(const std::function<void(const
   auto getAdvancedHistoryCallback= _wrapper_callonce_cpp_function(getAdvancedHistoryCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* getMessageOptions_cs=const_cast<char*>(getMessageOptions.c_str());
-  get_advanced_history_message_list((CB_S_I_S_S)((this->getAdvancedHistoryCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,getMessageOptions_cs);
+  get_advanced_history_message_list((CB_S_I_S_S)((getAdvancedHistoryCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,getMessageOptions_cs);
 }
 
 // send message
@@ -1000,7 +999,7 @@ void SendMessage(const std::function<void(const std::string&, int, const std::st
   auto sendMessageCallback= _wrapper_callonce_cpp_function(sendMessageCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* message_cs=const_cast<char*>(message.c_str());
-  send_message((CB_S_I_S_S)((this->sendMessageCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,message_cs);
+  send_message((CB_S_I_S_S)((sendMessageCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,message_cs);
 }
 
 // // ===================================================== user ===============================================
@@ -1009,75 +1008,75 @@ void SendMessage(const std::function<void(const std::string&, int, const std::st
 // get users info
 void OpenIMManager::GetUserInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getUserInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_user_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,userIDList_cs);
+  get_user_info((CB_S_I_S_S)((getUserInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,userIDList_cs);
 }
 
 // get users info from server
 void OpenIMManager::GetUsersInfoFromServer(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, int type, const std::string& userIDList)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getUsersInfoFromServerCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_users_info_from_server((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,type,userIDList_cs);
+  get_users_info_from_server((CB_S_I_S_S)((getUsersInfoFromServerCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,type,userIDList_cs);
 }
 
 // set self info
 void OpenIMManager::SetSelfInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& selfInfo)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto setSelfInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* selfInfo_cs=const_cast<char*>(selfInfo.c_str());
-  set_self_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),selfInfo_cs);
+  set_self_info((CB_S_I_S_S)((setSelfInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),selfInfo_cs);
 }
 
 // get self user info
 void OpenIMManager::GetSelfUserInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getSelfUserInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_self_user_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_self_user_info((CB_S_I_S_S)((getSelfUserInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
 }
 
 // update message sender info
 void OpenIMManager::UpdateMessageSenderInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& message)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto updateMessageSenderInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* message_cs=const_cast<char*>(message.c_str());
-  update_message_sender_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),message_cs);
+  update_message_sender_info((CB_S_I_S_S)((updateMessageSenderInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),message_cs);
 }
 
 // subscribe users status
 void OpenIMManager::SubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto subscribeUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  subscribe_users_status((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+  subscribe_users_status((CB_S_I_S_S)((subscribeUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
 }
 
 // unsubscribe users status
 void OpenIMManager::UnsubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto unsubscribeUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  unsubscribe_users_status((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+  unsubscribe_users_status((CB_S_I_S_S)((unsubscribeUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
 }
 
 // get subscribed users status
 void OpenIMManager::GetSubscribedUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getSubScribedUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_subscribed_users_status((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_subscribed_users_status((CB_S_I_S_S)((getSubScribedUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
 }
 
 // get user status
 void OpenIMManager::GetUserStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userID_cs=const_cast<char*>(userID.c_str());
-  get_user_status((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs);
+  get_user_status((CB_S_I_S_S)((getUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs);
 }
 
 // // ===================================================== friend ===============================================
@@ -1086,29 +1085,128 @@ void OpenIMManager::GetUserStatus(const std::function<void(const std::string&, i
 // get specified friends info
 void OpenIMManager::GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getSpecifiedFriendsInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_specified_friends_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+  get_specified_friends_info((CB_S_I_S_S)((getSpecifiedFriendsInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
 }
-
 
 // get friend list
 void OpenIMManager::GetFriendList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getFriendListCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_friend_list((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_friend_list((CB_S_I_S_S)((getFriendListCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
 }
 
-// get friend list from server
-void OpenIMManager::GetFriendListFromServer(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+// get friend list page
+void OpenIMManager::GetFriendListPage(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, int offset, int count)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto getFriendListPageCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_friend_list_from_server((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_friend_list_page((CB_S_I_S_S)((getFriendListPageCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,offset,count);
 }
 
+// search friends
+void OpenIMManager::SearchFriends(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& searchParam)
+{
+  auto searchFriendsCallback= _wrapper_callonce_cpp_function(callback);
+  char* searchParam_cs=const_cast<char*>(searchParam.c_str());
+  search_friends((CB_S_I_S_S)((searchFriendsCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),searchParam_cs);
+}
 
+// check friend
+void OpenIMManager::CheckFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID)
+{
+  auto checkFriendCallback= _wrapper_callonce_cpp_function(callback);
+  char* userID_cs=const_cast<char*>(userID.c_str());
+  check_friend((CB_S_I_S_S)((checkFriendCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs);
+}
+
+// add friend
+void OpenIMManager::AddFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& friendInfo, const std::string& addFriendExtraInfo)
+{
+  auto addFriendCallback= _wrapper_callonce_cpp_function(callback);
+  char* friendInfo_cs=const_cast<char*>(friendInfo.c_str());
+  char* addFriendExtraInfo_cs=const_cast<char*>(addFriendExtraInfo.c_str());
+  add_friend((CB_S_I_S_S)((addFriendCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),friendInfo_cs,addFriendExtraInfo_cs);
+}
+
+// set friend remark
+void OpenIMManager::SetFriendRemark(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID, const std::string& remark)
+{
+  auto setFriendRemarkCallback= _wrapper_callonce_cpp_function(callback);
+  char* userID_cs=const_cast<char*>(userID.c_str());
+  char* remark_cs=const_cast<char*>(remark.c_str());
+  set_friend_remark((CB_S_I_S_S)((setFriendRemarkCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs,remark_cs);
+}
+
+// delete friend
+void OpenIMManager::DeleteFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID, const std::string& deleteFriendExtraInfo)
+{
+  auto deleteFriendCallback= _wrapper_callonce_cpp_function(callback);
+  char* userID_cs=const_cast<char*>(userID.c_str());
+  char* deleteFriendExtraInfo_cs=const_cast<char*>(deleteFriendExtraInfo.c_str());
+  delete_friend((CB_S_I_S_S)(deleteFriendCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs,deleteFriendExtraInfo_cs);
+}
+
+// get friend application list as recipant
+void OpenIMManager::GetFriendApplicationListAsRecipant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+{
+  auto getFriendApplicationListAsRecipantCallback= _wrapper_callonce_cpp_function(callback);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  get_friend_application_list_as_recipant((CB_S_I_S_S)((getFriendApplicationListAsRecipantCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+}
+
+// get friend application list as applicant
+void OpenIMManager::GetFriendApplicationListAsApplicant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+{
+  auto getFriendApplicationListAsApplicantCallback= _wrapper_callonce_cpp_function(callback);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  get_friend_application_list_as_applicant((CB_S_I_S_S)((getFriendApplicationListAsApplicantCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+
+}
+
+// accept friend application
+void OpenIMManager::AcceptFriendApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& friendApplicationID, const std::string& extraInfo)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* friendApplicationID_cs=const_cast<char*>(friendApplicationID.c_str());
+  char* extraInfo_cs=const_cast<char*>(extraInfo.c_str());
+  accept_friend_application((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),friendApplicationID_cs,extraInfo_cs);
+}
+
+// refuse friend application
+void OpenIMManager::RefuseFriendApplication(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& friendApplicationID, const std::string& extraInfo)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* friendApplicationID_cs=const_cast<char*>(friendApplicationID.c_str());
+  char* extraInfo_cs=const_cast<char*>(extraInfo.c_str());
+  refuse_friend_application((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),friendApplicationID_cs,extraInfo_cs);
+}
+
+// add black
+void OpenIMManager::AddBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
+  add_black((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+}
+
+// get black list
+void OpenIMManager::GetBlackList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  get_black_list((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+}
+
+// remove black
+void OpenIMManager::RemoveBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
+  remove_black((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+}
 
 // // ===================================================== group ===============================================
 // // 
@@ -1116,20 +1214,127 @@ void OpenIMManager::GetFriendListFromServer(const std::function<void(const std::
 // create group
 void OpenIMManager::CreateGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupReqInfo)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupReqInfo_cs=const_cast<char*>(groupReqInfo.c_str());
-  create_group((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,groupReqInfo_cs);
+  create_group((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,groupReqInfo_cs);
 }
 
 // join group
 void OpenIMManager::JoinGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reqMsg, int joinSource)
 {
-  auto callback= _wrapper_callonce_cpp_function(callback);
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupID_cs=const_cast<char*>(groupID.c_str());
   char* reqMsg_cs=const_cast<char*>(reqMsg.c_str());
-  join_group((CB_S_I_S_S_I)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&,int)>()),operationID_cs,groupID_cs,reqMsg_cs,joinSource);
+  join_group((CB_S_I_S_S_I)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&,int)>()),operationID_cs,groupID_cs,reqMsg_cs,joinSource);
 }
 
-void OpenIMManager::
+// quit group
+void OpenIMManager::QuitGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& reqMsg)
+{
+  // use one time callback instead
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* reqMsg_cs=const_cast<char*>(reqMsg.c_str());
+  quit_group((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,reqMsg_cs);
+}
+
+// dismiss group
+void OpenIMManager::DismissGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& reqMsg)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* reqMsg_cs=const_cast<char*>(reqMsg.c_str());
+  dismiss_group((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,reqMsg_cs);
+}
+
+// change group mute
+void OpenIMManager::ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, bool mute)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  change_group_mute((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,mute);
+}
+
+// change group member mute
+void OpenIMManager::ChangeGroupMemberMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, bool mute)
+{
+  auto callback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* memberID_cs=const_cast<char*>(memberID.c_str());
+  change_group_member_mute((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,memberID_cs,mute);
+}
+
+// set the role level of a group member
+void OpenIMManager::SetGroupMemberRoleLevel(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, int roleLevel)
+{
+  auto callback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* memberID_cs=const_cast<char*>(memberID.c_str());
+  set_group_member_role_level((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,memberID_cs,roleLevel);
+}
+
+// set the information of a group member
+void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, const std::string& memberInfo)
+{
+  auto callback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* memberID_cs=const_cast<char*>(memberID.c_str());
+  char* memberInfo_cs=const_cast<char*>(memberInfo.c_str());
+  set_group_member_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,memberID_cs,memberInfo_cs);
+}
+
+// get Joined Group List
+void OpenIMManager::GetJoinedGroupList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  get_joined_group_list((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+}
+
+// get specified groups info
+void OpenIMManager::GetSpecifiedGroupsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupIDList)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupIDList_cs=const_cast<char*>(groupIDList.c_str());
+  get_specified_groups_info((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupIDList_cs);
+}
+
+// search groups
+void OpenIMManager::SearchGroups(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& searchParam)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* searchParam_cs=const_cast<char*>(searchParam.c_str());
+  search_groups((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),searchParam_cs);
+}
+
+// set group info
+void OpenIMManager::SetGroupInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupInfo)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupInfo_cs=const_cast<char*>(groupInfo.c_str());
+  set_group_info((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupInfo_cs);
+}
+
+// set group verification
+void OpenIMManager::SetGroupVerification(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, int type)
+{
+  auto oneTimeCallback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  set_group_verification((CB_S_I_S_S)((oneTimeCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,type);
+}
+
+// set group look member info
+void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, bool lookMemberInfo)
+{
+  auto callback= _wrapper_callonce_cpp_function(callback);
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  set_group_member_info((CB_S_I_S_S)((this->callback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),groupID_cs,lookMemberInfo);
+
+  
+
+}
+
+//
+
