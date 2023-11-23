@@ -67,7 +67,9 @@
         "locale": "cpp",
         "__functional_03": "cpp",
         "iostream": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "unistd.h": "c",
+        "pthread.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
