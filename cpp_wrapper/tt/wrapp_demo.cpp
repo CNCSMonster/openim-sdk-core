@@ -132,6 +132,8 @@ void cpp_wrapp_call_cb_s(const std::function<void(const std::string&)>& func){
 
 int main(){
   // 测试cpp_wrapp_call_cb_s
+  // 打印cb_s 0 位置 函数指针
+  std::cout<<"_fps_cb_s[0]:"<<_fps_cb_s[0]<<std::endl;
   cpp_wrapp_call_cb_s([](const std::string& str){
     std::cout<<"cpp_wrapp_call_cb_s:"<<str<<std::endl;
   });

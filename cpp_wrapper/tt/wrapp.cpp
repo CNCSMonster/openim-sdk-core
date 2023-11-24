@@ -19,13 +19,11 @@
 #include <chrono>
 #include <mutex>
 
-// define max num of callback function stored
-static constexpr int MAX_NUM_OF_CALLBACKS_S = 10;
-static constexpr int MAX_NUM_OF_CALLBACKS_I_S = 10;
-static constexpr int MAX_NUM_OF_CALLBACKS_S_I_S_S = 10;
-static constexpr int MAX_NUM_OF_CALLBACKS_S_I_S_S_I = 10;
-// define sleep time for get index
-static constexpr int SLEEP_TIME_FOR_GET_INDEX = 100; //ms
+#define MAX_NUM_OF_CB_S 10
+#define MAX_NUM_OF_CB_I_S 10
+#define MAX_NUM_OF_CB_S_I_S_S 10
+#define MAX_NUM_OF_CB_S_I_S_S_I 10
+#define SLEEP_TIME_FOR_GET_INDEX 100 //ms
 
 
 // use recursive template to generate enough function pointer array
@@ -127,8 +125,6 @@ namespace {
     // get a available cb_s function index
     int get_cb_s_index(){
       std::lock_guard<std::mutex> lock(_cb_s_mutex);
-      // 找到第一个为0的下标
-      _cb_s_bitmap.size();
       int index=-1;
       for(int i=0;i<_cb_s_bitmap.size();i++){
         if(_cb_s_bitmap[i]==0){
@@ -227,6 +223,8 @@ namespace {
 
 
   };
+
+  FuncPoolManager& instance=FuncPoolManager::get_instance();
 }
 
 
@@ -234,7 +232,7 @@ namespace {
 namespace {
   // wrapper persistent function
   // wrapp CB_S,if function pool is full,return nullptr
-  std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+  CB_S _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
     int index=FuncPoolManager::get_instance().get_cb_s_index();
     while(index<0){
       std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
@@ -244,7 +242,7 @@ namespace {
     return _fps_cb_s[index];
   }
   // wrapp CB_I_S
-  std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  CB_I_S _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_i_s_index();
     while(index<0){
@@ -255,7 +253,7 @@ namespace {
     return _fps_cb_i_s[index];
   }
   // wrapp CB_S_I_S_S
-  std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  CB_S_I_S_S _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
     while(index<0){
@@ -266,7 +264,7 @@ namespace {
     return _fps_cb_s_i_s_s[index];
   }
   // wrapp CB_S_I_S_S_I
-  std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  CB_S_I_S_S_I _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
     while(index<0){
@@ -278,7 +276,7 @@ namespace {
   }
 
   // wrapp function to onetime function
-  std::function<void(char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+  CB_S _wrapper_callonce_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
     int index=FuncPoolManager::get_instance().get_cb_s_index();
     while(index<0){
       std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
@@ -291,7 +289,7 @@ namespace {
     return _fps_cb_s[index];
   }
   
-  std::function<void(int,char*)> _wrapper_callonce_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  CB_I_S _wrapper_callonce_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_i_s_index();
     while(index<0){
@@ -305,7 +303,7 @@ namespace {
     return _fps_cb_i_s[index];
   }
   
-  std::function<void(char*,int,char*,char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  CB_S_I_S_S _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
     while(index<0){
@@ -319,7 +317,7 @@ namespace {
     return _fps_cb_s_i_s_s[index];
   }
   
-  std::function<void(char*,int,char*,char*,int)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  CB_S_I_S_S_I _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
   {
     int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
     // while loop util get a available index
@@ -336,3 +334,53 @@ namespace {
 
 }
 
+// // 对call_cb_s的cpp封装
+void cpp_wrapp_call_cb_s(const std::function<void(const std::string&)>& func){
+  auto wrapp_func=_wrapper_cpp_function(func);
+  call_cb_s(wrapp_func);
+}
+void cpp_wrapp_call_cb_i_s(const std::function<void(int,const std::string&)>& func){
+  auto wrapp_func=_wrapper_cpp_function(func);
+  call_cb_i_s(wrapp_func);
+}
+void cpp_wrapp_call_cb_s_i_s_s(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& func){
+  auto wrapp_func=_wrapper_cpp_function(func);
+  call_cb_s_i_s_s(wrapp_func);
+}
+void cpp_wrapp_call_cb_s_i_s_s_i(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& func){
+  auto wrapp_func=_wrapper_cpp_function(func);
+  call_cb_s_i_s_s_i(wrapp_func);
+}
+
+
+
+int main(){
+  // test 
+  // test cpp_wrapp_call_cb_s
+  cpp_wrapp_call_cb_s([](const std::string& str){
+    std::cout<<"cpp_wrapp_call_cb_s:"<<str<<std::endl;
+  });
+  //sleep
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  // test cpp_wrapp_call_cb_i_s
+  cpp_wrapp_call_cb_i_s([](int code,const std::string& str){
+    std::cout<<"cpp_wrapp_call_cb_i_s:"<<code<<","<<str<<std::endl;
+  });
+  //sleep
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  // test cpp_wrapp_call_cb_s_i_s_s
+  cpp_wrapp_call_cb_s_i_s_s([](const std::string& operationID,int code,const std::string& str,const std::string& str2){
+    std::cout<<"cpp_wrapp_call_cb_s_i_s_s:"<<operationID<<","<<code<<","<<str<<","<<str2<<std::endl;
+  });
+  //sleep
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  // test cpp_wrapp_call_cb_s_i_s_s_i
+  cpp_wrapp_call_cb_s_i_s_s_i([](const std::string& operationID,int code,const std::string& str,const std::string& str2,int c_int){
+    std::cout<<"cpp_wrapp_call_cb_s_i_s_s_i:"<<operationID<<","<<code<<","<<str<<","<<str2<<","<<c_int<<std::endl;
+  });
+  
+  //sleep
+  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+  
+  return 0;
+}
