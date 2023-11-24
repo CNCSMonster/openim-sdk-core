@@ -207,98 +207,329 @@ extern "C" {
 
 
 
+
+#include <functional>
+#include <string>
+#include <iostream>
+#include <bitset>
+#include <atomic>
+#include <thread>
+#include <chrono>
+#include <mutex>
+
+#define MAX_NUM_OF_CB_S 10
+#define MAX_NUM_OF_CB_I_S 10
+#define MAX_NUM_OF_CB_S_I_S_S 10
+#define MAX_NUM_OF_CB_S_I_S_S_I 10
+#define SLEEP_TIME_FOR_GET_INDEX 100 //ms
+
+
+// use recursive template to generate enough function pointer array
+// and define c type function interface
+// and define manager class to manage function pool
 namespace {
-  // wrapp CB_S
-  std::function<void(char*)> _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
-    return [cpp_function](char* c_str){
-      cpp_function(c_str);
+  CB_S* _fps_cb_s=new CB_S[MAX_NUM_OF_CB_S];
+  CB_I_S* _fps_cb_i_s=new CB_I_S[MAX_NUM_OF_CB_I_S];
+  CB_S_I_S_S* _fps_cb_s_i_s_s=new CB_S_I_S_S[MAX_NUM_OF_CB_S_I_S_S];
+  CB_S_I_S_S_I* _fps_cb_s_i_s_s_i=new CB_S_I_S_S_I[MAX_NUM_OF_CB_S_I_S_S_I];
+  // c type func interface call cpp function
+  std::function<void(const std::string&)>* _cpp_function_cb_s=new std::function<void(const std::string&)>[MAX_NUM_OF_CB_S];
+  std::function<void(int,const std::string&)>* _cpp_function_cb_i_s=new std::function<void(int,const std::string&)>[MAX_NUM_OF_CB_I_S];
+  std::function<void(const std::string&,int,const std::string&,const std::string&)>* _cpp_function_cb_s_i_s_s=new std::function<void(const std::string&,int,const std::string&,const std::string&)>[MAX_NUM_OF_CB_S_I_S_S];
+  std::function<void(const std::string&,int,const std::string&,const std::string&,int)>* _cpp_function_cb_s_i_s_s_i=new std::function<void(const std::string&,int,const std::string&,const std::string&,int)>[MAX_NUM_OF_CB_S_I_S_S_I];
+
+  template<int N>
+  void _generate_cb_s(){
+    _fps_cb_s[N]=[](char* c_str){
+      _cpp_function_cb_s[N](std::string(c_str));
     };
+    _generate_cb_s<N-1>();
   }
-  // wrapp CB_I_S
-  std::function<void(int,char*)> _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
-  {
-    return [cpp_function](int code ,char* c_str)->void {
-      cpp_function(code,c_str);
-    };
-  }
-  // wrapp CB_S_I_S_S
-  std::function<void(char*,int,char*,char*)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
-  {
-    return [cpp_function](char* operationID,int code,char* c_str,char* c_str2) -> void {
-      cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2));
-    };
-  }
-  // wrapp CB_S_I_S_S_I
-  std::function<void(char*,int,char*,char*,int)> _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
-  {
-    return [cpp_function](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
-      cpp_function(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+  template<>
+  void _generate_cb_s<0>(){
+    _fps_cb_s[0]=[](char* c_str){
+      _cpp_function_cb_s[0](std::string(c_str));
     };
   }
 
-  template<typename Func> 
-  struct CallOnceWrapper {
-    std::function<Func> f;
+  template<int N>
+  void _generate_cb_i_s(){
+    _fps_cb_i_s[N]=[](int code,char* c_str){
+      _cpp_function_cb_i_s[N](code,std::string(c_str));
+    };
+    _generate_cb_i_s<N-1>();
+  }
+  template<>
+  void _generate_cb_i_s<0>(){
+    _fps_cb_i_s[0]=[](int code,char* c_str){
+      _cpp_function_cb_i_s[0](code,std::string(c_str));
+    };
+  }
+  template<int N>
+  void _generate_cb_s_i_s_s(){
+    _fps_cb_s_i_s_s[N]=[](char* operationID,int code,char* c_str,char* c_str2){
+      _cpp_function_cb_s_i_s_s[N](std::string(operationID),code,std::string(c_str),std::string(c_str2));
+    };
+    _generate_cb_s_i_s_s<N-1>();
+  }
+  template<>
+  void _generate_cb_s_i_s_s<0>(){
+    _fps_cb_s_i_s_s[0]=[](char* operationID,int code,char* c_str,char* c_str2){
+      _cpp_function_cb_s_i_s_s[0](std::string(operationID),code,std::string(c_str),std::string(c_str2));
+    };
+  }
+  template<int N>
+  void _generate_cb_s_i_s_s_i(){
+    _fps_cb_s_i_s_s_i[N]=[](char* operationID,int code,char* c_str,char* c_str2,int c_int){
+      _cpp_function_cb_s_i_s_s_i[N](std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+    };
+    _generate_cb_s_i_s_s_i<N-1>();
+  }
+  template<>
+  void _generate_cb_s_i_s_s_i<0>(){
+    _fps_cb_s_i_s_s_i[0]=[](char* operationID,int code,char* c_str,char* c_str2,int c_int){
+      _cpp_function_cb_s_i_s_s_i[0](std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
+    };
+  }
+
+  // init function
+  void init(){
+    _generate_cb_s<MAX_NUM_OF_CB_S-1>();
+    _generate_cb_i_s<MAX_NUM_OF_CB_I_S-1>();
+    _generate_cb_s_i_s_s<MAX_NUM_OF_CB_S_I_S_S-1>();
+    _generate_cb_s_i_s_s_i<MAX_NUM_OF_CB_S_I_S_S_I-1>();
+  }
+  // define sigle instance class to manage function pool
+  class FuncPoolManager{
+    private:
+    // define a global bitmap, and support atomic operation, to manage cb_s pool
+    std::bitset<MAX_NUM_OF_CB_S> _cb_s_bitmap;
+    std::bitset<MAX_NUM_OF_CB_I_S> _cb_i_s_bitmap;
+    std::bitset<MAX_NUM_OF_CB_S_I_S_S> _cb_s_i_s_s_bitmap;
+    std::bitset<MAX_NUM_OF_CB_S_I_S_S_I> _cb_s_i_s_s_i_bitmap;
+    std::mutex _cb_s_mutex;
+    std::mutex _cb_i_s_mutex;
+    std::mutex _cb_s_i_s_s_mutex;
+    std::mutex _cb_s_i_s_s_i_mutex;
+    FuncPoolManager(){
+      init();
+    }
+    FuncPoolManager(const FuncPoolManager&){}
+    public:
+    static FuncPoolManager& get_instance(){
+      static FuncPoolManager instance;
+      return instance;
+    }
+    // get a available cb_s function index
+    int get_cb_s_index(){
+      std::lock_guard<std::mutex> lock(_cb_s_mutex);
+      int index=-1;
+      for(int i=0;i<_cb_s_bitmap.size();i++){
+        if(_cb_s_bitmap[i]==0){
+          _cb_s_bitmap[i]=1;
+          index=i;
+          break;
+        }
+      }
+      return index;
+    }
+    // get a available cb_i_s function index
+    int get_cb_i_s_index(){
+      std::lock_guard<std::mutex> lock(_cb_i_s_mutex);
+      // 找到第一个为0的下标
+      _cb_i_s_bitmap.size();
+      int index=-1;
+      for(int i=0;i<_cb_i_s_bitmap.size();i++){
+        if(_cb_i_s_bitmap[i]==0){
+          _cb_i_s_bitmap[i]=1;
+          index=i;
+          break;
+        }
+      }
+      return index;
+    }
+    // get a available cb_s_i_s_s function index
+    int get_cb_s_i_s_s_index(){
+      std::lock_guard<std::mutex> lock(_cb_s_i_s_s_mutex);
+      // 找到第一个为0的下标
+      _cb_s_i_s_s_bitmap.size();
+      int index=-1;
+      for(int i=0;i<_cb_s_i_s_s_bitmap.size();i++){
+        if(_cb_s_i_s_s_bitmap[i]==0){
+          _cb_s_i_s_s_bitmap[i]=1;
+          index=i;
+          break;
+        }
+      }
+      return index;
+    }
+    // get a available cb_s_i_s_s_i function index
+    int get_cb_s_i_s_s_i_index(){
+      std::lock_guard<std::mutex> lock(_cb_s_i_s_s_i_mutex);
+      // 找到第一个为0的下标
+      _cb_s_i_s_s_i_bitmap.size();
+      int index=-1;
+      for(int i=0;i<_cb_s_i_s_s_i_bitmap.size();i++){
+        if(_cb_s_i_s_s_i_bitmap[i]==0){
+          _cb_s_i_s_s_i_bitmap[i]=1;
+          index=i;
+          break;
+        }
+      }
+      return index;
+    }
+    // release a available cb_s function index
+    int release_cb_s_index(int index){
+      std::lock_guard<std::mutex> lock(_cb_s_mutex);
+      if(index<0||index>=_cb_s_bitmap.size()){
+        return -1;
+      }
+      _cpp_function_cb_s[index]=nullptr;
+      _cb_s_bitmap[index]=0;
+      return 0;
+    }
+    // release a available cb_i_s function index
+    int release_cb_i_s_index(int index){
+      std::lock_guard<std::mutex> lock(_cb_i_s_mutex);
+      if(index<0||index>=_cb_i_s_bitmap.size()){
+        return -1;
+      }
+      _cpp_function_cb_i_s[index]=nullptr;
+      _cb_i_s_bitmap[index]=0;
+      return 0;
+    }
+    // release a available cb_s_i_s_s function index
+    int release_cb_s_i_s_s_index(int index){
+      std::lock_guard<std::mutex> lock(_cb_s_i_s_s_mutex);
+      if(index<0||index>=_cb_s_i_s_s_bitmap.size()){
+        return -1;
+      }
+      _cpp_function_cb_s_i_s_s[index]=nullptr;
+      _cb_s_i_s_s_bitmap[index]=0;
+      return 0;
+    }
+    // release a available cb_s_i_s_s_i function index
+    int release_cb_s_i_s_s_i_index(int index){
+      std::lock_guard<std::mutex> lock(_cb_s_i_s_s_i_mutex);
+      if(index<0||index>=_cb_s_i_s_s_i_bitmap.size()){
+        return -1;
+      }
+      _cpp_function_cb_s_i_s_s_i[index]=nullptr;
+      _cb_s_i_s_s_i_bitmap[index]=0;
+      return 0;
+    }
   };
-  // wrapp function to onetime
-  // wrapp CB_S to CallOnce
-  std::function<void(char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
-    CallOnceWrapper<void(char*)>* callonceWrapper =new CallOnceWrapper<void(char*)>();
-    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
-    return [callonceWrapper](char* c_str){
-      callonceWrapper->f(c_str);
-      delete callonceWrapper;
-    };
+  FuncPoolManager& instance=FuncPoolManager::get_instance();
+
+  // wrapper persistent function
+  // wrapp CB_S,if function pool is full,return nullptr
+  CB_S _wrapper_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+    int index=FuncPoolManager::get_instance().get_cb_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_index();
+    }
+    _cpp_function_cb_s[index]=cpp_function;
+    return _fps_cb_s[index];
   }
-  // wrapp CB_I_S to CallOnce
-  std::function<void(int,char*)> _wrapper_callonce_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  // wrapp CB_I_S
+  CB_I_S _wrapper_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
   {
-    CallOnceWrapper<void(int,char*)> callonceWrapper =new CallOnceWrapper<void(int,char*)>();
-    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
-    return [callonceWrapper](int code ,char* c_str)->void {
-      callonceWrapper->f(code,c_str);
-      delete callonceWrapper;
-    };
+    int index=FuncPoolManager::get_instance().get_cb_i_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_i_s_index();
+    }
+    _cpp_function_cb_i_s[index]=cpp_function;
+    return _fps_cb_i_s[index];
   }
-  // wrapp CB_S_I_S_S to CallOnce
-  std::function<void(char*,int,char*,char*)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  // wrapp CB_S_I_S_S
+  CB_S_I_S_S _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
   {
-    CallOnceWrapper<void(char*,int,char*,char*)> callonceWrapper =new CallOnceWrapper<void(char*,int,char*,char*)>();
-    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
-    return [callonceWrapper](char* operationID,int code,char* c_str,char* c_str2) -> void {
-      callonceWrapper->f(std::string(operationID),code,std::string(c_str),std::string(c_str2));
-      delete callonceWrapper;
-    };
+    int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
+    }
+    _cpp_function_cb_s_i_s_s[index]=cpp_function;
+    return _fps_cb_s_i_s_s[index];
   }
-  // wrapp CB_S_I_S_S_I to CallOnce
-  std::function<void(char*,int,char*,char*,int)> _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  // wrapp CB_S_I_S_S_I
+  CB_S_I_S_S_I _wrapper_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
   {
-    CallOnceWrapper<void(char*,int,char*,char*,int)> callonceWrapper =new CallOnceWrapper<void(char*,int,char*,char*,int)>();
-    callonceWrapper->f=_wrapper_cpp_function(cpp_function);
-    return [callonceWrapper](char* operationID,int code,char* c_str,char* c_str2,int c_int) -> void {
-      callonceWrapper->f(std::string(operationID),code,std::string(c_str),std::string(c_str2),c_int);
-      delete callonceWrapper;
+    int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
+    }
+    _cpp_function_cb_s_i_s_s_i[index]=cpp_function;
+    return _fps_cb_s_i_s_s_i[index];
+  }
+
+  // wrapp function to onetime function
+  CB_S _wrapper_callonce_cpp_function(const std::function<void(const std::string&)>& cpp_function) {
+    int index=FuncPoolManager::get_instance().get_cb_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_index();
+    }
+    _cpp_function_cb_s[index]=[cpp_function,index](const std::string& str)->void {
+      cpp_function(str);
+      FuncPoolManager::get_instance().release_cb_s_index(index);
     };
+    return _fps_cb_s[index];
+  }
+  
+  CB_I_S _wrapper_callonce_cpp_function(const std::function<void(int,const std::string&)>& cpp_function)
+  {
+    int index=FuncPoolManager::get_instance().get_cb_i_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_i_s_index();
+    }
+    _cpp_function_cb_i_s[index]=[cpp_function,index](int code,const std::string& str)->void {
+      cpp_function(code,str);
+      FuncPoolManager::get_instance().release_cb_i_s_index(index);
+    };
+    return _fps_cb_i_s[index];
+  }
+  
+  CB_S_I_S_S _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&)>& cpp_function)
+  {
+    int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_i_s_s_index();
+    }
+    _cpp_function_cb_s_i_s_s[index]=[cpp_function,index](const std::string& operationID,int code,const std::string& str,const std::string& str2)->void {
+      cpp_function(operationID,code,str,str2);
+      FuncPoolManager::get_instance().release_cb_s_i_s_s_index(index);
+    };
+    return _fps_cb_s_i_s_s[index];
+  }
+  
+  CB_S_I_S_S_I _wrapper_callonce_cpp_function(const std::function<void(const std::string&,int,const std::string&,const std::string&,int)>& cpp_function)
+  {
+    int index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
+    // while loop util get a available index
+    while(index<0){
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME_FOR_GET_INDEX));
+      index=FuncPoolManager::get_instance().get_cb_s_i_s_s_i_index();
+    }
+    _cpp_function_cb_s_i_s_s_i[index]=[cpp_function,index](const std::string& operationID,int code,const std::string& str,const std::string& str2,int c_int)->void {
+      cpp_function(operationID,code,str,str2,c_int);
+      FuncPoolManager::get_instance().release_cb_s_i_s_s_i_index(index);
+    };
+    return _fps_cb_s_i_s_s_i[index];
   }
 
 }
 
 
+
 class OpenIMManager
 {
-private:
-  std::function<void(int,char*)> init_sdk_callback;
-  std::function<void(const std::string&)> print_callback;
-  std::function<void(int,const std::string&)> group_listener_callback;
-  std::function<void(int,const std::string&)> conversation_listener_callback;
-  std::function<void(int,const std::string&)> advanced_msg_listener_callback;
-  std::function<void(int,const std::string&)> batch_msg_listener_callback;
-  std::function<void(int,const std::string&)> user_listener_callback;
-  std::function<void(int,const std::string&)> friend_listener_callback;
-  std::function<void(int,const std::string&)> custom_business_listener_callback;
-
 public:
-
   // instance pattern
   static OpenIMManager& GetInstance()
   {
@@ -311,8 +542,7 @@ public:
   {
     char* operationID_cs=const_cast<char*>(operationID.c_str());
     char* config_cs=const_cast<char*>(config.c_str());
-    this->init_sdk_callback=_wrapper_cpp_function(cCallback);
-    return init_sdk((CB_I_S)(this->init_sdk_callback.target<void(*)(int,char *)>()),operationID_cs , config_cs);
+    return init_sdk(_wrapper_cpp_function(cCallback),operationID_cs , config_cs);
   }
   void UnInitSDK(const std::string& operationID){
     char* operationID_cs=const_cast<char*>(operationID.c_str());
@@ -627,38 +857,31 @@ public:
 
 void OpenIMManager::SetAdvancedMsgListener(const std::function<void(int, const std::string &)>& advancedMsgListenerCallback)
 {
-  this->advancedMsgListenerCallback = _wrapper_cpp_function(advancedMsgListenerCallback);
-  set_advanced_msg_listener((CB_I_S)((this->advancedMsgListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_advanced_msg_listener(_wrapper_cpp_function(advancedMsgListenerCallback));
 }
 void OpenIMManager::SetBatchMsgListener(const std::function<void(int, const std::string &)>& batchMsgListenerCallback)
 {
-  this->batchMsgListenerCallback = _wrapper_cpp_function(batchMsgListenerCallback);
-  set_batch_msg_listener((CB_I_S)((this->batchMsgListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_batch_msg_listener(_wrapper_cpp_function(batchMsgListenerCallback));
 }
 void OpenIMManager::SetConversationListener(const std::function<void(int, const std::string &)>& conversationListenerCallback)
 {
-  this->conversationListenerCallback = _wrapper_cpp_function(conversationListenerCallback);
-  set_conversation_listener((CB_I_S)((this->conversationListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_conversation_listener(_wrapper_cpp_function(conversationListenerCallback));
 }
 void OpenIMManager::SetCustomBusinessListener(const std::function<void(int, const std::string &)>& customBusinessListenerCallback)
 {
-  this->customBusinessListenerCallback = _wrapper_cpp_function(customBusinessListenerCallback);
-  set_custom_business_listener((CB_I_S)((this->customBusinessListenerCallback).target<void(*)(int,const std::string&)>()));
+ set_custom_business_listener(_wrapper_cpp_function(customBusinessListenerCallback));
 }
 void OpenIMManager::SetFriendListener(const std::function<void(int, const std::string &)>& friendListenerCallback)
 {
-  this->friendListenerCallback = _wrapper_cpp_function(friendListenerCallback);
-  set_friend_listener((CB_I_S)((this->friendListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_friend_listener(_wrapper_cpp_function(friendListenerCallback));
 }
 void OpenIMManager::SetGroupListener(const std::function<void(int, const std::string &)>& groupListenerCallback)
 {
-  this->groupListenerCallback = _wrapper_cpp_function(groupListenerCallback);
-  set_group_listener((CB_I_S)((this->groupListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_group_listener(_wrapper_cpp_function(groupListenerCallback));
 }
 void OpenIMManager::SetUserListener(const std::function<void(int, const std::string &)>& userListenerCallback)
 {
-  this->userListenerCallback = _wrapper_cpp_function(userListenerCallback);
-  set_user_listener((CB_I_S)((this->userListenerCallback).target<void(*)(int,const std::string&)>()));
+  set_user_listener(_wrapper_cpp_function(userListenerCallback));
 }
 
 // // ===================================================== CallOnce Callback ===============================================
@@ -668,8 +891,10 @@ void OpenIMManager::SetUserListener(const std::function<void(int, const std::str
 // // ===================================================== login logout ===============================================
 void OpenIMManager::Login(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& loginCallback, const std::string& operationID, const std::string& uid, const std::string& token)
 {
-  auto loginCallback= _wrapper_callonce_cpp_function(loginCallback);
-  login((CB_S_I_S_S)(loginCallback.target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,uid_cs,token_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* uid_cs=const_cast<char*>(uid.c_str());
+  char* token_cs=const_cast<char*>(token.c_str());
+  login(_wrapper_callonce_cpp_function(loginCallback),operationID_cs,uid_cs,token_cs);
 }
 
 void OpenIMManager::Logout(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& logoutCallback, const std::string& operationID)
@@ -682,7 +907,7 @@ void OpenIMManager::Logout(const std::function<void(const std::string&, int, con
 void OpenIMManager::GetLoginStatus(const std::string& operationID)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  return get_login_status(operationID_cs);
+  get_login_status(operationID_cs);
 }
 
 std::string OpenIMManager::GetLoginUser()
@@ -695,9 +920,8 @@ std::string OpenIMManager::GetLoginUser()
 
 void OpenIMManager::NetworkStatusChanged(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& networkStatusCallback, const std::string& operationID)
 {
-  auto networkStatusCallback= _wrapper_callonce_cpp_function(networkStatusCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  network_status_changed((CB_S_I_S_S)((this->networkStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  network_status_changed(_wrapper_callonce_cpp_function(networkStatusCallback),operationID_cs);
 }
 
 
@@ -981,27 +1205,24 @@ std::string OpenIMManager::CreateForwardMessage(const std::string& operationID, 
 // get all conversation list
 void OpenIMManager::GetAllConversationList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& getAllConversationListCallback, const std::string& operationID)
 {
-  auto getAllConversationListCallback= _wrapper_callonce_cpp_function(getAllConversationListCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_all_conversation_list((CB_S_I_S_S)((getAllConversationListCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_all_conversation_list(_wrapper_callonce_cpp_function(getAllConversationListCallback),operationID_cs);
 }
 
 // get advanced history message list
 void OpenIMManager::GetAdvancedHistoryMessageList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& getAdvancedHistoryCallback , const std::string& operationID, const std::string& getMessageOptions)
 {
-  auto getAdvancedHistoryCallback= _wrapper_callonce_cpp_function(getAdvancedHistoryCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* getMessageOptions_cs=const_cast<char*>(getMessageOptions.c_str());
-  get_advanced_history_message_list((CB_S_I_S_S)((getAdvancedHistoryCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,getMessageOptions_cs);
+  get_advanced_history_message_list(_wrapper_callonce_cpp_function(getAdvancedHistoryCallback),operationID_cs,getMessageOptions_cs);
 }
 
 // send message
 void SendMessage(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& sendMessageCallback, const std::string& operationID, const std::string& message)
 {
-  auto sendMessageCallback= _wrapper_callonce_cpp_function(sendMessageCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* message_cs=const_cast<char*>(message.c_str());
-  send_message((CB_S_I_S_S)((sendMessageCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,message_cs);
+  send_message(_wrapper_callonce_cpp_function(sendMessageCallback),operationID_cs,message_cs);
 }
 
 // // ===================================================== user ===============================================
@@ -1010,10 +1231,9 @@ void SendMessage(const std::function<void(const std::string&, int, const std::st
 // get users info
 void OpenIMManager::GetUserInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList)
 {
-  auto getUserInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_user_info((CB_S_I_S_S)((getUserInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,userIDList_cs);
+  get_users_info(_wrapper_callonce_cpp_function(getUserInfoCallback),operationID_cs,userIDList_cs);
 }
 
 // get users info from server
@@ -1023,6 +1243,7 @@ void OpenIMManager::GetUsersInfoFromServer(const std::function<void(const std::s
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
   get_users_info_from_server((CB_S_I_S_S)((getUsersInfoFromServerCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,type,userIDList_cs);
+  //TODO
 }
 
 // set self info
@@ -1340,3 +1561,6 @@ void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::strin
 
 //
 
+
+
+//
