@@ -1,2 +1,2 @@
-gcc --shared -fPIC -o add.so add.c
+# compile cpp wrapper code to .so
 
