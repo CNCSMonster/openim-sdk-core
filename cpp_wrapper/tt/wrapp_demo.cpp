@@ -129,16 +129,36 @@ void cpp_wrapp_call_cb_s(const std::function<void(const std::string&)>& func){
   call_cb_s(_fps_cb_s[index]);
 }
 
-
-int main(){
+void test_wrapp_demo() {
   // 测试cpp_wrapp_call_cb_s
   // 打印cb_s 0 位置 函数指针
   std::cout<<"_fps_cb_s[0]:"<<_fps_cb_s[0]<<std::endl;
-  cpp_wrapp_call_cb_s([](const std::string& str){
-    std::cout<<"cpp_wrapp_call_cb_s:"<<str<<std::endl;
-  });
+  {
+    auto f=[](const std::string& str){
+      std::cout<<"test delete:"<<str<<std::endl;
+    };
+    std::function<void(const std::string&)>* f1=new std::function<void(const std::string&)>(f);
+    cpp_wrapp_call_cb_s(*f1);
+    delete f1;  //在调用异步函数注册回调函数f1后,立刻释放f1,看能否正常会回调,如果能,说明注册时复制成功
+  }
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  auto f1=[](const std::string& str){
+    std::cout<<"f1:"<<str<<std::endl;
+  };
+  cpp_wrapp_call_cb_s(f1);
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  cpp_wrapp_call_cb_s(f1);  //能够再次传递f1给调用,说明函数池中的函数为复制
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  // cpp_wrapp_call_cb_s([](const std::string& str){
+  //   std::cout<<"cpp_wrapp_call_cb_s:"<<str<<std::endl;
+  // });
   // 睡眠10s
   std::this_thread::sleep_for(std::chrono::seconds(10));
-  return 0;
+}
+
+
+int main(){
+  test_wrapp_demo();
 }
 

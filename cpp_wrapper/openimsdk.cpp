@@ -1243,55 +1243,49 @@ void OpenIMManager::GetUsersInfoFromServer(const std::function<void(const std::s
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
   get_users_info_from_server((CB_S_I_S_S)((getUsersInfoFromServerCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,type,userIDList_cs);
-  //TODO
 }
 
 // set self info
 void OpenIMManager::SetSelfInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& selfInfo)
 {
-  auto setSelfInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* selfInfo_cs=const_cast<char*>(selfInfo.c_str());
-  set_self_info((CB_S_I_S_S)((setSelfInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),selfInfo_cs);
+  // set_self_info((CB_S_I_S_S)((setSelfInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),selfInfo_cs);
+  set_self_info(_wrapper_callonce_cpp_function(callback),selfInfo_cs);
 }
 
 // get self user info
 void OpenIMManager::GetSelfUserInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
-  auto getSelfUserInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_self_user_info((CB_S_I_S_S)((getSelfUserInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_self_user_info(_wrapper_callonce_cpp_function(callback),operationID_cs);
 }
 
 // update message sender info
 void OpenIMManager::UpdateMessageSenderInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& message)
 {
-  auto updateMessageSenderInfoCallback= _wrapper_callonce_cpp_function(callback);
   char* message_cs=const_cast<char*>(message.c_str());
-  update_message_sender_info((CB_S_I_S_S)((updateMessageSenderInfoCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),message_cs);
+  update_message_sender_info(_wrapper_callonce_cpp_function(callback),message_cs);
 }
 
 // subscribe users status
 void OpenIMManager::SubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
 {
-  auto subscribeUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  subscribe_users_status((CB_S_I_S_S)((subscribeUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+  subscribe_users_status(_wrapper_callonce_cpp_function(callback),userIDList_cs);
 }
 
 // unsubscribe users status
 void OpenIMManager::UnsubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
 {
-  auto unsubscribeUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  unsubscribe_users_status((CB_S_I_S_S)((unsubscribeUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userIDList_cs);
+  unsubscribe_users_status(_wrapper_callonce_cpp_function(callback),userIDList_cs);
 }
 
 // get subscribed users status
 void OpenIMManager::GetSubscribedUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
-  auto getSubScribedUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_subscribed_users_status((CB_S_I_S_S)((getSubScribedUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  get_subscribe_users_status(_wrapper_callonce_cpp_function(callback),operationID_cs);
 }
 
 // get user status
@@ -1300,6 +1294,7 @@ void OpenIMManager::GetUserStatus(const std::function<void(const std::string&, i
   auto getUsersStatusCallback= _wrapper_callonce_cpp_function(callback);
   char* userID_cs=const_cast<char*>(userID.c_str());
   get_user_status((CB_S_I_S_S)((getUsersStatusCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),userID_cs);
+  
 }
 
 // // ===================================================== friend ===============================================
