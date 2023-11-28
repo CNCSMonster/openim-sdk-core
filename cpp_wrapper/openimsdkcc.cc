@@ -2,9 +2,8 @@
 #include <functional>
 #include <memory>
 
-extern "C" {
-  #include "openimsdk.h"
-}
+// openimsdk.h can be include by cpp functions
+#include "openimsdk.h"
 
 // extern void set_print(CB_S print);
 // extern void set_group_listener(CB_I_S cCallback);
@@ -529,6 +528,9 @@ namespace {
 
 class OpenIMManager
 {
+private:
+OpenIMManager();
+~OpenIMManager();
 public:
   // instance pattern
   static OpenIMManager& GetInstance()
@@ -548,10 +550,6 @@ public:
     char* operationID_cs=const_cast<char*>(operationID.c_str());
     return un_init_sdk(operationID_cs);
   }
-  
-  // ban default constructor and destructor
-  OpenIMManager()=delete
-  ~OpenIMManager()=delete
 
   // // set print
   // void SetPrint(const std::function<void(const std::string&)>& printCallBack);
@@ -587,7 +585,7 @@ public:
   void NetworkStatusChanged(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& networkStatusCallback, const std::string& operationID);
 
   // get login status
-  int GetLoginStatus(const std::string& operationID);
+  GoInt GetLoginStatus(const std::string& operationID);
 
   // get login user
   std::string GetLoginUser();
@@ -899,15 +897,14 @@ void OpenIMManager::Login(const std::function<void(const std::string&, int, cons
 
 void OpenIMManager::Logout(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& logoutCallback, const std::string& operationID)
 {
-  auto logoutCallback= _wrapper_callonce_cpp_function(logoutCallback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  logout((CB_S_I_S_S)((this->logoutCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs);
+  logout(_wrapper_callonce_cpp_function(logoutCallback),operationID_cs);
 }
 
-void OpenIMManager::GetLoginStatus(const std::string& operationID)
+GoInt OpenIMManager::GetLoginStatus(const std::string& operationID)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_login_status(operationID_cs);
+  return get_login_status(operationID_cs);
 }
 
 std::string OpenIMManager::GetLoginUser()
@@ -934,7 +931,7 @@ std::string OpenIMManager::CreateTextMessage(const std::string& operationID, con
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* text_cs=const_cast<char*>(text.c_str());
   char* result_cs=create_text_message(operationID_cs,text_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   // release dynamic c string memory
   free(result_cs);
   return result;
@@ -947,7 +944,7 @@ std::string OpenIMManager::CreateAdvancedTextMessage(const std::string& operatio
   char* text_cs=const_cast<char*>(text.c_str());
   char* messageEntityList_cs=const_cast<char*>(messageEntityList.c_str());
   char* result_cs=create_advanced_text_message(operationID_cs,text_cs,messageEntityList_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -961,7 +958,7 @@ std::string OpenIMManager::CreateTextAtMessage(const std::string& operationID, c
   char* atUsersInfo_cs=const_cast<char*>(atUsersInfo.c_str());
   char* message_cs=const_cast<char*>(message.c_str());
   char* result_cs=create_text_at_message(operationID_cs,text_cs,atUserList_cs,atUsersInfo_cs,message_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -972,7 +969,7 @@ std::string OpenIMManager::CreateLocationMessage(const std::string& operationID,
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* description_cs=const_cast<char*>(description.c_str());
   char* result_cs=create_location_message(operationID_cs,description_cs,longitude,latitude);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -985,7 +982,7 @@ std::string OpenIMManager::CreateCustomMessage(const std::string& operationID, c
   char* extension_cs=const_cast<char*>(extension.c_str());
   char* description_cs=const_cast<char*>(description.c_str());
   char* result_cs=create_custom_message(operationID_cs,data_cs,extension_cs,description_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -997,7 +994,7 @@ std::string OpenIMManager::CreateQuoteMessage(const std::string& operationID, co
   char* text_cs=const_cast<char*>(text.c_str());
   char* message_cs=const_cast<char*>(message.c_str());
   char* result_cs=create_quote_message(operationID_cs,text_cs,message_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 
@@ -1011,7 +1008,7 @@ std::string OpenIMManager::CreateAdvancedQuoteMessage(const std::string& operati
   char* message_cs=const_cast<char*>(message.c_str());
   char* messageEntityList_cs=const_cast<char*>(messageEntityList.c_str());
   char* result_cs=create_advanced_quote_message(operationID_cs,text_cs,message_cs,messageEntityList_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1022,7 +1019,7 @@ std::string OpenIMManager::CreateCardMessage(const std::string& operationID, con
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* cardInfo_cs=const_cast<char*>(cardInfo.c_str());
   char* result_cs=create_card_message(operationID_cs,cardInfo_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1035,7 +1032,7 @@ std::string OpenIMManager::CreateVideoMessageFromFullPath(const std::string& ope
   char* videoType_cs=const_cast<char*>(videoType.c_str());
   char* snapshotFullPath_cs=const_cast<char*>(snapshotFullPath.c_str());
   char* result_cs=create_video_message_from_full_path(operationID_cs,videoFullPath_cs,videoType_cs,duration,snapshotFullPath_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1046,7 +1043,7 @@ std::string OpenIMManager::CreateImageMessageFromFullPath(const std::string& ope
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* imageFullPath_cs=const_cast<char*>(imageFullPath.c_str());
   char* result_cs=create_image_message_from_full_path(operationID_cs,imageFullPath_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1057,7 +1054,7 @@ std::string OpenIMManager::CreateSoundMessageFromFullPath(const std::string& ope
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* soundPath_cs=const_cast<char*>(soundPath.c_str());
   char* result_cs=create_sound_message_from_full_path(operationID_cs,soundPath_cs,duration);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1069,7 +1066,7 @@ std::string OpenIMManager::CreateFileMessageFromFullPath(const std::string& oper
   char* fileFullPath_cs=const_cast<char*>(fileFullPath.c_str());
   char* fileName_cs=const_cast<char*>(fileName.c_str());
   char* result_cs=create_file_message_from_full_path(operationID_cs,fileFullPath_cs,fileName_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1080,7 +1077,7 @@ std::string OpenIMManager::CreateImageMessage(const std::string& operationID, co
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* imagePath_cs=const_cast<char*>(imagePath.c_str());
   char* result_cs=create_image_message(operationID_cs,imagePath_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1093,7 +1090,7 @@ std::string OpenIMManager::CreateImageMessageByURL(const std::string& operationI
   char* bigPicture_cs=const_cast<char*>(bigPicture.c_str());
   char* snapshotPicture_cs=const_cast<char*>(snapshotPicture.c_str());
   char* result_cs=create_image_message_by_url(operationID_cs,sourcePicture_cs,bigPicture_cs,snapshotPicture_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1104,7 +1101,7 @@ std::string OpenIMManager::CreateSoundMessageByURL(const std::string& operationI
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* soundBaseInfo_cs=const_cast<char*>(soundBaseInfo.c_str());
   char* result_cs=create_sound_message_by_url(operationID_cs,soundBaseInfo_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1115,7 +1112,7 @@ std::string OpenIMManager::CreateSoundMessage(const std::string& operationID, co
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* soundPath_cs=const_cast<char*>(soundPath.c_str());
   char* result_cs=create_sound_message(operationID_cs,soundPath_cs,duration);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1126,7 +1123,7 @@ std::string OpenIMManager::CreateVideoMessageByURL(const std::string& operationI
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* videoBaseInfo_cs=const_cast<char*>(videoBaseInfo.c_str());
   char* result_cs=create_video_message_by_url(operationID_cs,videoBaseInfo_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1139,7 +1136,7 @@ std::string OpenIMManager::CreateVideoMessage(const std::string& operationID, co
   char* videoType_cs=const_cast<char*>(videoType.c_str());
   char* snapshotPath_cs=const_cast<char*>(snapshotPath.c_str());
   char* result_cs=create_video_message(operationID_cs,videoPath_cs,videoType_cs,duration,snapshotPath_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1150,7 +1147,7 @@ std::string OpenIMManager::CreateFileMessageByURL(const std::string& operationID
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* fileBaseInfo_cs=const_cast<char*>(fileBaseInfo.c_str());
   char* result_cs=create_file_message_by_url(operationID_cs,fileBaseInfo_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1162,7 +1159,7 @@ std::string OpenIMManager::CreateFileMessage(const std::string& operationID, con
   char* filePath_cs=const_cast<char*>(filePath.c_str());
   char* fileName_cs=const_cast<char*>(fileName.c_str());
   char* result_cs=create_file_message(operationID_cs,filePath_cs,fileName_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1175,7 +1172,7 @@ std::string OpenIMManager::CreateMergerMessage(const std::string& operationID, c
   char* title_cs=const_cast<char*>(title.c_str());
   char* summaryList_cs=const_cast<char*>(summaryList.c_str());
   char* result_cs=create_merger_message(operationID_cs,messageList_cs,title_cs,summaryList_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1186,7 +1183,7 @@ std::string OpenIMManager::CreateFaceMessage(const std::string& operationID, int
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* data_cs=const_cast<char*>(data.c_str());
   char* result_cs=create_face_message(operationID_cs,index,data_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1197,7 +1194,7 @@ std::string OpenIMManager::CreateForwardMessage(const std::string& operationID, 
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* m_cs=const_cast<char*>(m.c_str());
   char* result_cs=create_forward_message(operationID_cs,m_cs);
-  std::string result(result_css);
+  std::string result(result_cs);
   free(result_cs);
   return result;
 }
@@ -1218,11 +1215,14 @@ void OpenIMManager::GetAdvancedHistoryMessageList(const std::function<void(const
 }
 
 // send message
-void SendMessage(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& sendMessageCallback, const std::string& operationID, const std::string& message)
+void SendMessage(const std::function<void(const std::string&, int, const std::string&, const std::string&,int)>& sendMessageCallback, const std::string& operationID, const std::string& message,const std::string& recvID,const std::string& groupID,const std::string& offlinePushInfo)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* message_cs=const_cast<char*>(message.c_str());
-  send_message(_wrapper_callonce_cpp_function(sendMessageCallback),operationID_cs,message_cs);
+  char* recvID_cs=const_cast<char*>(recvID.c_str());
+  char* groupID_cs=const_cast<char*>(groupID.c_str());
+  char* offlinePushInfo_cs=const_cast<char*>(offlinePushInfo.c_str());
+  send_message(_wrapper_callonce_cpp_function(sendMessageCallback),operationID_cs,message_cs,recvID_cs,groupID_cs,offlinePushInfo_cs);
 }
 
 // // ===================================================== user ===============================================
