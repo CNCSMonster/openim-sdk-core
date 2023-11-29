@@ -69,7 +69,11 @@
         "iostream": "cpp",
         "future": "cpp",
         "unistd.h": "c",
-        "pthread.h": "c"
+        "pthread.h": "c",
+        "bit": "cpp",
+        "deque": "cpp",
+        "numeric": "cpp",
+        "random": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

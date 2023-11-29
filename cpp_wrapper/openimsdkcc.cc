@@ -62,11 +62,11 @@
 
 // // =====================================================friend===============================================
 // //
-// extern void get_specified_friends_info(CB_S_I_S_S cCallback, char* operationID, char* userIDList);
+// extern void get_specified_friends_info(CB_S_I_S_S cCallback, char* operationID, char* userIDs);
 // extern void get_friend_list(CB_S_I_S_S cCallback, char* operationID);
 // extern void get_friend_list_page(CB_S_I_S_S cCallback, char* operationID, int offset, int count);
 // extern void search_friends(CB_S_I_S_S cCallback, char* operationID, char* searchParam);
-// extern void check_friend(CB_S_I_S_S cCallback, char* operationID, char* userIDList);
+// extern void check_friend(CB_S_I_S_S cCallback, char* operationID, char* userIDs);
 // extern void add_friend(CB_S_I_S_S cCallback, char* operationID, char* userIDReqMsg);
 // extern void set_friend_remark(CB_S_I_S_S cCallback, char* operationID, char* userIDRemark);
 // extern void delete_friend(CB_S_I_S_S cCallback, char* operationID, char* friendUserID);
@@ -149,15 +149,15 @@
 
 // // GetGroupMemberListByJoinTimeFilter retrieves the list of group members filtered by join time
 // //
-// extern void get_group_member_list_by_join_time_filter(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, int cOffset, int cCount, long long int cJoinTimeBegin, long long int cJoinTimeEnd, char* cFilterUserIDList);
+// extern void get_group_member_list_by_join_time_filter(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, int cOffset, int cCount, long long int cJoinTimeBegin, long long int cJoinTimeEnd, char* cFilteruserIDs);
 
 // // GetSpecifiedGroupMembersInfo retrieves the information of specified group members
 // //
-// extern void get_specified_group_members_info(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cUserIDList);
+// extern void get_specified_group_members_info(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cuserIDs);
 
 // // KickGroupMember kicks group members
 // //
-// extern void kick_group_member(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cReason, char* cUserIDList);
+// extern void kick_group_member(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cReason, char* cuserIDs);
 
 // // TransferGroupOwner transfers the ownership of a group
 // //
@@ -165,7 +165,7 @@
 
 // // InviteUserToGroup invites users to a group
 // //
-// extern void invite_user_to_group(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cReason, char* cUserIDList);
+// extern void invite_user_to_group(CB_S_I_S_S cCallback, char* operationID, char* cGroupID, char* cReason, char* cuserIDs);
 
 // // GetGroupApplicationListAsRecipient retrieves the group application list as a recipient
 // //
@@ -530,7 +530,6 @@ class OpenIMManager
 {
 private:
 OpenIMManager();
-~OpenIMManager();
 public:
   // instance pattern
   static OpenIMManager& GetInstance()
@@ -546,6 +545,7 @@ public:
     char* config_cs=const_cast<char*>(config.c_str());
     return init_sdk(_wrapper_cpp_function(cCallback),operationID_cs , config_cs);
   }
+
   void UnInitSDK(const std::string& operationID){
     char* operationID_cs=const_cast<char*>(operationID.c_str());
     return un_init_sdk(operationID_cs);
@@ -697,7 +697,7 @@ public:
 
   // get subscribe users status
   void GetSubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
-
+  
   // get user status
   void GetUserStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDs);
 
@@ -705,7 +705,7 @@ public:
   // //
 
   // get specified friends info
-  void GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList);
+  void GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDs);
 
   // get friend list
   void GetFriendList(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
@@ -717,7 +717,7 @@ public:
   void SearchFriends(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& searchParam);
 
   // check friend
-  void CheckFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList);
+  void CheckFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDs);
 
   // add friend
   void AddFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDReqMsg);
@@ -729,7 +729,7 @@ public:
   void DeleteFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& friendUserID);
 
   // get friend application list as recipient
-  void GetFriendApplicationListAsRecipient(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
+  void GetFriendApplicationListAsRecipant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
 
   // get friend application list as applicant
   void GetFriendApplicationListAsApplicant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
@@ -806,19 +806,19 @@ public:
   void GetGroupMemberOwnerAndAdmin(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
 
   // GetGroupMemberListByJoinTimeFilter retrieves the list of group members filtered by join time
-  void GetGroupMemberListByJoinTimeFilter(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int offset, int count, long long int joinTimeBegin, long long int joinTimeEnd, const std::string& filterUserIDList);
+  void GetGroupMemberListByJoinTimeFilter(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, int offset, int count, long long int joinTimeBegin, long long int joinTimeEnd, const std::string& filteruserIDs);
 
   // GetSpecifiedGroupMembersInfo retrieves the information of specified group members
-  void GetSpecifiedGroupMembersInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userIDList);
+  void GetSpecifiedGroupMembersInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& userIDs);
 
   // KickGroupMember kicks group members
-  void KickGroupMember(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDList);
+  void KickGroupMember(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDs);
 
   // TransferGroupOwner transfers the ownership of a group
   void TransferGroupOwner(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& newOwnerUserID);
 
   // InviteUserToGroup invites users to a group
-  void InviteUserToGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDList);
+  void InviteUserToGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID, const std::string& reason, const std::string& userIDs);
 
   // GetGroupApplicationListAsRecipient retrieves the group application list as a recipient
   void GetGroupApplicationListAsRecipient(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID);
@@ -1229,27 +1229,27 @@ void SendMessage(const std::function<void(const std::string&, int, const std::st
 // //
 
 // get users info
-void OpenIMManager::GetUserInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDList)
+void OpenIMManager::GetUsersInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& userIDs)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_users_info(_wrapper_callonce_cpp_function(getUserInfoCallback),operationID_cs,userIDList_cs);
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  get_users_info(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // get users info from server
-void OpenIMManager::GetUsersInfoFromServer(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, int type, const std::string& userIDList)
+void OpenIMManager::GetUsersInfoFromServer(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID,const std::string& userIDs)
 {
-  auto getUsersInfoFromServerCallback= _wrapper_callonce_cpp_function(callback);
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_users_info_from_server((CB_S_I_S_S)((getUsersInfoFromServerCallback).target<void(*)(const std::string&,int,const std::string&,const std::string&)>()),operationID_cs,type,userIDList_cs);
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  get_users_info_from_srv(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // set self info
-void OpenIMManager::SetSelfInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& selfInfo)
+void OpenIMManager::SetSelfInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& selfInfo)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* selfInfo_cs=const_cast<char*>(selfInfo.c_str());
-  set_self_info(_wrapper_callonce_cpp_function(callback),selfInfo_cs);
+  set_self_info(_wrapper_callonce_cpp_function(callback),operationID_cs,selfInfo_cs);
 }
 
 // get self user info
@@ -1260,48 +1260,55 @@ void OpenIMManager::GetSelfUserInfo(const std::function<void(const std::string&,
 }
 
 // update message sender info
-void OpenIMManager::UpdateMessageSenderInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& message)
+void OpenIMManager::UpdateMessageSenderInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& nickname,const std::string& faceURL)
 {
-  char* message_cs=const_cast<char*>(message.c_str());
-  update_message_sender_info(_wrapper_callonce_cpp_function(callback),message_cs);
+  //TODO
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* nickname_cs=const_cast<char*>(nickname.c_str());
+  char* faceURL_cs=const_cast<char*>(faceURL.c_str());
+  update_msg_sender_info(_wrapper_callonce_cpp_function(callback),operationID_cs,nickname_cs,faceURL_cs);
 }
 
 // subscribe users status
-void OpenIMManager::SubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+void OpenIMManager::SubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userIDs)
 {
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  subscribe_users_status(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  subscribe_users_status(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // unsubscribe users status
-void OpenIMManager::UnsubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+void OpenIMManager::UnsubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userIDs)
 {
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  unsubscribe_users_status(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  unsubscribe_users_status(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
-// get subscribed users status
-void OpenIMManager::GetSubscribedUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
+// get subscribe users status
+void OpenIMManager::GetSubscribeUsersStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
   get_subscribe_users_status(_wrapper_callonce_cpp_function(callback),operationID_cs);
 }
 
 // get user status
-void OpenIMManager::GetUserStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID)
+void OpenIMManager::GetUserStatus(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userID)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userID_cs=const_cast<char*>(userID.c_str());
-  get_user_status(_wrapper_callonce_cpp_function(callback),userID_cs);
+  get_user_status(_wrapper_callonce_cpp_function(callback),operationID_cs,userID_cs);
 }
 
 // // ===================================================== friend ===============================================
 // //
 
 // get specified friends info
-void OpenIMManager::GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+void OpenIMManager::GetSpecifiedFriendsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userIDs)
 {
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  get_specified_friends_info(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  get_specified_friends_info(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // get friend list
@@ -1319,17 +1326,19 @@ void OpenIMManager::GetFriendListPage(const std::function<void(const std::string
 }
 
 // search friends
-void OpenIMManager::SearchFriends(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& searchParam)
+void OpenIMManager::SearchFriends(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& searchParam)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* searchParam_cs=const_cast<char*>(searchParam.c_str());
-  search_friends(_wrapper_callonce_cpp_function(callback),searchParam_cs);
+  search_friends(_wrapper_callonce_cpp_function(callback),operationID_cs,searchParam_cs);
 }
 
 // check friend
-void OpenIMManager::CheckFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userID)
+void OpenIMManager::CheckFriend(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userID)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* userID_cs=const_cast<char*>(userID.c_str());
-  check_friend(_wrapper_callonce_cpp_function(callback),userID_cs);
+  check_friend(_wrapper_callonce_cpp_function(callback),operationID_cs,userID_cs);
 }
 
 // add friend
@@ -1360,7 +1369,7 @@ void OpenIMManager::DeleteFriend(const std::function<void(const std::string&, in
 void OpenIMManager::GetFriendApplicationListAsRecipant(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID)
 {
   char* operationID_cs=const_cast<char*>(operationID.c_str());
-  get_friend_application_list_as_applicant(_wrapper_callonce_cpp_function(callback),operationID_cs);
+  get_friend_application_list_as_recipient(_wrapper_callonce_cpp_function(callback),operationID_cs);
 }
 
 // get friend application list as applicant
@@ -1375,7 +1384,7 @@ void OpenIMManager::AcceptFriendApplication(const std::function<void(const std::
 {
   char* friendApplicationID_cs=const_cast<char*>(friendApplicationID.c_str());
   char* extraInfo_cs=const_cast<char*>(extraInfo.c_str());
-  accept_friend_application(_wrapper_callonce_cpp_function(callback),friendApplicationID_cs,extraInfo_cs)
+  accept_friend_application(_wrapper_callonce_cpp_function(callback),friendApplicationID_cs,extraInfo_cs);
 }
 
 // refuse friend application
@@ -1387,10 +1396,11 @@ void OpenIMManager::RefuseFriendApplication(const std::function<void(const std::
 }
 
 // add black
-void OpenIMManager::AddBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+void OpenIMManager::AddBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userIDs)
 {
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  add_black(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  add_black(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // get black list
@@ -1401,10 +1411,11 @@ void OpenIMManager::GetBlackList(const std::function<void(const std::string&, in
 }
 
 // remove black
-void OpenIMManager::RemoveBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& userIDList)
+void OpenIMManager::RemoveBlack(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& userIDs)
 {
-  char* userIDList_cs=const_cast<char*>(userIDList.c_str());
-  remove_black(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* userIDs_cs=const_cast<char*>(userIDs.c_str());
+  remove_black(_wrapper_callonce_cpp_function(callback),operationID_cs,userIDs_cs);
 }
 
 // // ===================================================== group ===============================================
@@ -1444,36 +1455,38 @@ void OpenIMManager::DismissGroup(const std::function<void(const std::string&, in
 }
 
 // change group mute
-void OpenIMManager::ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, bool mute)
+void OpenIMManager::ChangeGroupMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupID, bool mute)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupID_cs=const_cast<char*>(groupID.c_str());
-  change_group_mute(_wrapper_callonce_cpp_function(callback),groupID_cs,mute);
+  change_group_mute(_wrapper_callonce_cpp_function(callback),operationID_cs,groupID_cs,mute);
 }
 
 // change group member mute
-void OpenIMManager::ChangeGroupMemberMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, bool mute)
+void OpenIMManager::ChangeGroupMemberMute(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupID, const std::string& memberID, int mutedSeconds)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupID_cs=const_cast<char*>(groupID.c_str());
   char* memberID_cs=const_cast<char*>(memberID.c_str());
-  change_group_member_mute(_wrapper_callonce_cpp_function(callback),groupID_cs,memberID_cs,mute);
+  change_group_member_mute(_wrapper_callonce_cpp_function(callback),operationID_cs,groupID_cs,memberID_cs,mutedSeconds);
 }
 
 
 // set the role level of a group member
-void OpenIMManager::SetGroupMemberRoleLevel(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, int roleLevel)
+void OpenIMManager::SetGroupMemberRoleLevel(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupID, const std::string& memberID, int roleLevel)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupID_cs=const_cast<char*>(groupID.c_str());
   char* memberID_cs=const_cast<char*>(memberID.c_str());
-  set_group_member_role_level(_wrapper_callonce_cpp_function(callback),groupID_cs,memberID_cs,roleLevel);
+  set_group_member_role_level(_wrapper_callonce_cpp_function(callback),operationID_cs,groupID_cs,memberID_cs,roleLevel);
 }
 
 // set the information of a group member
-void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, const std::string& memberID, const std::string& memberInfo)
+void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupMemberInfo)
 {
-  char* groupID_cs=const_cast<char*>(groupID.c_str());
-  char* memberID_cs=const_cast<char*>(memberID.c_str());
-  char* memberInfo_cs=const_cast<char*>(memberInfo.c_str());
-  set_group_member_info(_wrapper_callonce_cpp_function(callback),groupID_cs,memberID_cs,memberInfo_cs);
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
+  char* groupMemberInfo_cs=const_cast<char*>(groupMemberInfo.c_str());
+  set_group_member_info(_wrapper_callonce_cpp_function(callback),operationID_cs,groupMemberInfo_cs);
 }
 
 // get Joined Group List
@@ -1484,36 +1497,34 @@ void OpenIMManager::GetJoinedGroupList(const std::function<void(const std::strin
 }
 
 // get specified groups info
-void OpenIMManager::GetSpecifiedGroupsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupIDList)
+void OpenIMManager::GetSpecifiedGroupsInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupIDList)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupIDList_cs=const_cast<char*>(groupIDList.c_str());
-  get_specified_friends_info(_wrapper_callonce_cpp_function(callback),userIDList_cs);
+  get_specified_groups_info(_wrapper_callonce_cpp_function(callback),operationID_cs,groupIDList_cs);
 }
 
 // search groups
-void OpenIMManager::SearchGroups(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& searchParam)
+void OpenIMManager::SearchGroups(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& searchParam)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* searchParam_cs=const_cast<char*>(searchParam.c_str());
-  search_groups(_wrapper_callonce_cpp_function(callback),searchParam_cs);
+  search_groups(_wrapper_callonce_cpp_function(callback),operationID_cs,searchParam_cs);
 }
 
 // set group info
-void OpenIMManager::SetGroupInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupInfo)
+void OpenIMManager::SetGroupInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupInfo)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupInfo_cs=const_cast<char*>(groupInfo.c_str());
-  set_group_info(_wrapper_callonce_cpp_function(callback),groupInfo_cs);
+  set_group_info(_wrapper_callonce_cpp_function(callback),operationID_cs,groupInfo_cs);
 }
 
 // set group verification
-void OpenIMManager::SetGroupVerification(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, int type)
+void OpenIMManager::SetGroupVerification(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback,const std::string& operationID, const std::string& groupID, int verification)
 {
+  char* operationID_cs=const_cast<char*>(operationID.c_str());
   char* groupID_cs=const_cast<char*>(groupID.c_str());
-  set_group_verification(_wrapper_callonce_cpp_function(callback),groupID_cs,type);
+  set_group_verification(_wrapper_callonce_cpp_function(callback),operationID_cs,groupID_cs,verification);
 }
 
-// set group look member info
-void OpenIMManager::SetGroupMemberInfo(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& groupID, bool lookMemberInfo)
-{
-  char* groupID_cs=const_cast<char*>(groupID.c_str());
-  set_group_member_info(_wrapper_callonce_cpp_function(callback),groupID_cs,lookMemberInfo);
-}
