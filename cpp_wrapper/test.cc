@@ -10,16 +10,36 @@ using namespace std;
 int main(){
   auto sdkMgr = OpenIMManager::GetInstance();
   string operationID="12345";
-  string uid= "4365007572";
-  string token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI0MzY1MDA3NTcyIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzAyNjk4NTkzLCJuYmYiOjE2OTQ5MjIyOTMsImlhdCI6MTY5NDkyMjU5M30.2Bp8lMgIWXZdPp4J_BWGqJ14gQqiHxGiICxfxrgAq-A";
-  string jsonString="{\"platformID\": 2, \"apiAddr\": \"http://125.124.195.201:10002\", \"wsAddr\":\"ws://125.124.195.201:10001\",\"dataDir\": \"./\", \"logLevel\": 5, \"isLogStandardOutput\": true, \"logFilePath\": \"./\", \"isExternalExtensions\": true}";
-  GoUint8 init_result;
-  init_result = sdkMgr.InitSDK([](int event,const string& data){
+  string uid= "openIM123";
+  string token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0";
+  string jsonString="{\"platformID\": 2, \"apiAddr\": \"http://14.29.168.56:10002\", \"wsAddr\":\"ws://14.29.168.56:10001\",\"dataDir\": \"./\", \"logLevel\": 5, \"isLogStandardOutput\": true, \"logFilePath\": \"./\", \"isExternalExtensions\": true}";
+  bool init_result = sdkMgr.InitSDK([](int event,const string& data){
     cout<<"init> "<<"event:"<<event<<" data:"<<data<<endl;
   },operationID, jsonString);
   cout<<"init_result:"<<init_result<<endl;
 
+  sdkMgr.SetConversationListener([](int event,const string& data){
+    cout<<"conversation> "<<"event:"<<event<<" data:"<<data<<endl;
+  });
+  sdkMgr.SetAdvancedMsgListener([](int event,const string& data){
+    cout<<"advancedMsg> "<<"event:"<<event<<" data:"<<data<<endl;
+  });
+  sdkMgr.Login([](const string& operationID ,int errCode,const string& errMsg, const string& data){
+    cout<<"login> " <<"operationID: "<<operationID<<" ,errCode: "<<errCode << "errMsg: "<<errMsg<< ", data: "<<data<<endl; 
+  },operationID,uid,token);
+  std::this_thread::sleep_for(std::chrono::seconds(10));
 
 
-  std::this_thread::sleep_for(std::chrono::seconds(1000));
+  // can only execute below function after login
+  string loginUserID=sdkMgr.GetLoginUser();
+  cout<<"loginUserID:"<<loginUserID<<endl;
+  string operationID1="12345,create";
+  string messge=sdkMgr.CreateTextMessage(operationID1,"CCM");
+  string operationID2="12345,get_all_conversation_list";
+  sdkMgr.GetAllConversationList([](const string& operationID,int errCode ,const string& errMsg,const string& data){
+    cout<<"getAllConversationList> "<<"data:"<<data<<endl;
+  },operationID2);
+  // std::this_thread::sleep_for(std::chrono::seconds(1000));
+  while(true);
+  return 0;
 } 

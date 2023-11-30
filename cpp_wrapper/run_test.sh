@@ -1,3 +1,3 @@
 
-g++ -o test ./test.cc ./openimsdk.so ./openimsdkcc.so
+g++ -o test  ./test.cc ./openimsdk.so ./openimsdkcc.so
 ./test

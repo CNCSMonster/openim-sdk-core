@@ -1,0 +1,342 @@
+2023-12-01 00:00:26.897	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/init_login.go:73]	InitSDK info	{"operationID": "12345", "config": {"platformID":2,"apiAddr":"http://14.29.168.56:10002","wsAddr":"ws://14.29.168.56:10001","dataDir":"./","logLevel":5,"isLogStandardOutput":true,"logFilePath":"./","isExternalExtensions":true}, "sdkVersion": "openim-sdk-core-v3.0.0"}
+2023-12-01 00:00:26.899	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:104]	call function	{"operationID": "12345", "in sdk args": ["openIM123","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"]}
+2023-12-01 00:00:26.899	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:116]	input req	{"operationID": "12345", "function name": "open_im_sdk/internal/login.(*LoginMgr).Login-fm", "args": ["openIM123","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"]}
+2023-12-01 00:00:26.899	[34mINFO[0m	[34m[PID:4147536][0m	[login/init_login.go:263]	login start... 	{"operationID": "12345", "userID": "openIM123", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"}
+2023-12-01 00:00:26.899	[34mINFO[0m	[34m[PID:4147536][0m	[db/db_init.go:170]	sqlite	{"operationID": "12345", "path": "/root/openim/openim-sdk-core/cpp_wrapper/OpenIM_v3_openIM123.db"}
+2023-12-01 00:00:26.906	[37mDEBUG[0m	[37m[PID:4147536][0m	[db/db_init.go:182]	open db success	{"operationID": "12345", "dbFileName": "/root/openim/openim-sdk-core/cpp_wrapper/OpenIM_v3_openIM123.db"}
+2023-12-01 00:00:27.215	[37mDEBUG[0m	[37m[PID:4147536][0m	[login/init_login.go:272]	NewDataBase ok	{"operationID": "12345", "userID": "openIM123", "dataDir": "./", "login cost time": 0.315686247}
+2023-12-01 00:00:27.216	[37mDEBUG[0m	[37m[PID:4147536][0m	[login/init_login.go:289]	forcedSynchronization success...	{"operationID": "12345", "login cost time: ": 0.316423322}
+2023-12-01 00:00:27.216	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:164]	readPump start	{"operationID": "12345", "goroutine ID:": 37}
+2023-12-01 00:00:27.216	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360028856595152"}
+2023-12-01 00:00:27.217	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/msg_sync.go:90]	loadSeq	{"operationID": "12345", "syncedMaxSeqs": {}}
+2023-12-01 00:00:27.217	[34mINFO[0m	[34m[PID:4147536][0m	[login/init_login.go:330]	login success...	{"operationID": "12345", "login cost time: ": 0.317969309}
+2023-12-01 00:00:27.218	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:223]	writePump start	{"operationID": "12345", "goroutine ID:": 38}
+2023-12-01 00:00:27.218	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:271]	heartbeat start	{"operationID": "12345", "goroutine ID:": 39}
+2023-12-01 00:00:27.260	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:28.260	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360030889585744"}
+2023-12-01 00:00:28.298	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:29.298	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360032299381405"}
+2023-12-01 00:00:29.320	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:30.320	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360033698243205"}
+2023-12-01 00:00:30.346	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:31.347	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360033575843413"}
+2023-12-01 00:00:31.367	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:32.367	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360036222583930"}
+2023-12-01 00:00:32.392	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:33.392	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360035347599357"}
+2023-12-01 00:00:33.424	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:34.425	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360036565448601"}
+2023-12-01 00:00:34.447	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:35.447	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360036649826542"}
+2023-12-01 00:00:35.483	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:36.483	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360038774590767"}
+2023-12-01 00:00:36.508	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:36.899	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:247]	input req	{"operationID": "12345,create", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).CreateTextMessage-fm", "args": ["CCM"]}
+2023-12-01 00:00:36.900	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:104]	call function	{"operationID": "12345,get_all_conversation_list", "in sdk args": null}
+2023-12-01 00:00:36.900	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:116]	input req	{"operationID": "12345,get_all_conversation_list", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).GetAllConversationList-fm", "args": null}
+2023-12-01 00:00:36.934	[34mINFO[0m	[34m[PID:4147536][0m	[open_im_sdk/util.go:187]	output resp	{"operationID": "12345,get_all_conversation_list", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).GetAllConversationList-fm", "resp": [], "cost time": 0.033443854}
+2023-12-01 00:00:37.508	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360041456714094"}
+2023-12-01 00:00:37.529	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:38.531	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360042293939777"}
+2023-12-01 00:00:38.557	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:39.557	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360041013214271"}
+2023-12-01 00:00:39.586	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:40.586	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360041299522173"}
+2023-12-01 00:00:40.610	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:41.611	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360045583632454"}
+2023-12-01 00:00:41.650	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:42.651	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360044504519550"}
+2023-12-01 00:00:42.699	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:43.700	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360046687746164"}
+2023-12-01 00:00:43.724	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:44.725	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360046472923936"}
+2023-12-01 00:00:44.752	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:45.753	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360049775179267"}
+2023-12-01 00:00:45.772	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:46.773	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360048928782294"}
+2023-12-01 00:00:46.794	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:47.795	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360050884784886"}
+2023-12-01 00:00:47.837	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:48.838	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360050001785950"}
+2023-12-01 00:00:48.869	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:49.869	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360051653577668"}
+2023-12-01 00:00:49.891	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:50.892	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360051185925264"}
+2023-12-01 00:00:50.918	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:51.918	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360053995407345"}
+2023-12-01 00:00:51.946	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:52.947	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360053125841897"}
+2023-12-01 00:00:52.971	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:53.971	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360055702058484"}
+2023-12-01 00:00:54.001	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:54.219	[34mINFO[0m	[34m[PID:4147536][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701360056175133094", "goroutine ID:": 39}
+2023-12-01 00:00:54.427	[31mERROR[0m	[31m[PID:4147536][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701360056175133094", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-12-01 00:00:55.002	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360057908850684"}
+2023-12-01 00:00:55.027	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:56.028	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360056276947873"}
+2023-12-01 00:00:56.054	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:57.055	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360059334181041"}
+2023-12-01 00:00:57.079	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:58.080	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360059648889368"}
+2023-12-01 00:00:58.102	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:00:59.103	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360062726404042"}
+2023-12-01 00:00:59.130	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:00.131	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360061776930525"}
+2023-12-01 00:01:00.156	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:01.156	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360065057978196"}
+2023-12-01 00:01:01.180	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:02.180	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360063989069191"}
+2023-12-01 00:01:02.206	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:03.206	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360066561904387"}
+2023-12-01 00:01:03.234	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:04.235	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360065642505684"}
+2023-12-01 00:01:04.258	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:05.259	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360069498146250"}
+2023-12-01 00:01:05.284	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:06.285	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360070271645568"}
+2023-12-01 00:01:06.329	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:07.330	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360071339818117"}
+2023-12-01 00:01:07.356	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:08.357	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360072338617301"}
+2023-12-01 00:01:08.377	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:09.377	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360072893356478"}
+2023-12-01 00:01:09.403	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:10.404	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360071313111358"}
+2023-12-01 00:01:10.427	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:11.428	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360072852309850"}
+2023-12-01 00:01:11.449	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:12.451	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360076404272121"}
+2023-12-01 00:01:12.490	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:13.491	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360077505857788"}
+2023-12-01 00:01:13.522	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:14.523	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360075675994076"}
+2023-12-01 00:01:14.548	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:15.549	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360076591628112"}
+2023-12-01 00:01:15.572	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:16.573	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360078472045536"}
+2023-12-01 00:01:16.594	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:17.595	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360080121562960"}
+2023-12-01 00:01:17.618	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:18.619	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360082678906694"}
+2023-12-01 00:01:18.650	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:19.651	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360079884058712"}
+2023-12-01 00:01:19.675	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:20.675	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360083389643550"}
+2023-12-01 00:01:20.723	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:21.218	[34mINFO[0m	[34m[PID:4147536][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701360083432225013", "goroutine ID:": 39}
+2023-12-01 00:01:21.219	[31mERROR[0m	[31m[PID:4147536][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701360083432225013", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-12-01 00:01:21.724	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360084584127550"}
+2023-12-01 00:01:21.758	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:22.760	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360085111418336"}
+2023-12-01 00:01:22.804	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:23.804	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360084726591341"}
+2023-12-01 00:01:23.827	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:24.827	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360088017902454"}
+2023-12-01 00:01:24.849	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:25.850	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360087887699064"}
+2023-12-01 00:01:25.893	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:26.893	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360087831635673"}
+2023-12-01 00:01:26.918	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:27.919	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360090697834530"}
+2023-12-01 00:01:27.946	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:28.947	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360092768783192"}
+2023-12-01 00:01:28.969	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:29.969	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360092811144150"}
+2023-12-01 00:01:30.013	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:31.013	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360094708001064"}
+2023-12-01 00:01:31.053	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:32.053	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360092555198169"}
+2023-12-01 00:01:32.078	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:33.078	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360095834400042"}
+2023-12-01 00:01:33.106	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:34.107	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360094362436133"}
+2023-12-01 00:01:34.128	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:35.129	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360097320794081"}
+2023-12-01 00:01:35.153	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:36.153	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360099828715070"}
+2023-12-01 00:01:36.183	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:37.183	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360099954216720"}
+2023-12-01 00:01:37.210	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:38.211	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360101287482349"}
+2023-12-01 00:01:38.231	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:39.231	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360102132221446"}
+2023-12-01 00:01:39.258	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:40.259	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360102278091783"}
+2023-12-01 00:01:40.282	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:41.283	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360102941702287"}
+2023-12-01 00:01:41.306	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:42.307	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360104545115696"}
+2023-12-01 00:01:42.328	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:43.329	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360107312581119"}
+2023-12-01 00:01:43.348	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:44.349	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360106501628943"}
+2023-12-01 00:01:44.378	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:45.379	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360106451748116"}
+2023-12-01 00:01:45.409	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:46.410	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360108672365654"}
+2023-12-01 00:01:46.437	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:47.437	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360109120403839"}
+2023-12-01 00:01:47.460	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:48.218	[34mINFO[0m	[34m[PID:4147536][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701360111624164856", "goroutine ID:": 39}
+2023-12-01 00:01:48.219	[31mERROR[0m	[31m[PID:4147536][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701360111624164856", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-12-01 00:01:48.462	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360112158911349"}
+2023-12-01 00:01:48.491	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:49.491	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360113162818012"}
+2023-12-01 00:01:49.517	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:50.518	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360113630671907"}
+2023-12-01 00:01:50.540	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:51.541	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360112834391091"}
+2023-12-01 00:01:51.562	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:52.562	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360113497925862"}
+2023-12-01 00:01:52.592	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:53.592	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360116949965583"}
+2023-12-01 00:01:53.615	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:54.615	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360116050195656"}
+2023-12-01 00:01:54.635	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:55.637	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360116784703279"}
+2023-12-01 00:01:55.667	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:56.667	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360117500320885"}
+2023-12-01 00:01:56.689	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:57.689	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360120930260687"}
+2023-12-01 00:01:57.718	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:58.718	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360118733533534"}
+2023-12-01 00:01:58.742	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:01:59.743	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360120129903086"}
+2023-12-01 00:01:59.768	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:00.769	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360124465570409"}
+2023-12-01 00:02:00.798	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:01.798	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360123044382456"}
+2023-12-01 00:02:01.825	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:02.826	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360123415231110"}
+2023-12-01 00:02:02.853	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:03.855	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360125224835371"}
+2023-12-01 00:02:03.878	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:04.879	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360126414673902"}
+2023-12-01 00:02:04.903	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:05.905	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360126254097322"}
+2023-12-01 00:02:05.936	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:06.938	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360128397307471"}
+2023-12-01 00:02:06.963	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:07.964	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360130695813392"}
+2023-12-01 00:02:07.994	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:08.996	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360131560490135"}
+2023-12-01 00:02:09.017	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:10.019	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360132229676570"}
+2023-12-01 00:02:10.042	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:11.044	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360131099843825"}
+2023-12-01 00:02:11.073	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:12.075	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360133079578235"}
+2023-12-01 00:02:12.105	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:13.107	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360133875426905"}
+2023-12-01 00:02:13.135	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:14.136	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360137190263590"}
+2023-12-01 00:02:14.166	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:15.166	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360135434616533"}
+2023-12-01 00:02:15.193	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:15.219	[34mINFO[0m	[34m[PID:4147536][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701360137347893659", "goroutine ID:": 39}
+2023-12-01 00:02:15.219	[31mERROR[0m	[31m[PID:4147536][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701360137347893659", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-12-01 00:02:16.193	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360139100096984"}
+2023-12-01 00:02:16.213	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:17.213	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360141285162516"}
+2023-12-01 00:02:17.242	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:18.242	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360140227965114"}
+2023-12-01 00:02:18.267	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:19.267	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360140723810491"}
+2023-12-01 00:02:19.293	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:20.293	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360141154862427"}
+2023-12-01 00:02:20.321	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:21.321	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360145413283860"}
+2023-12-01 00:02:21.344	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:22.345	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360146286799125"}
+2023-12-01 00:02:22.371	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:23.372	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360143525184226"}
+2023-12-01 00:02:23.398	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:24.398	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360144941827412"}
+2023-12-01 00:02:24.422	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:25.423	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360148718679529"}
+2023-12-01 00:02:25.444	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:26.444	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360149078451726"}
+2023-12-01 00:02:26.467	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:27.468	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360148100140925"}
+2023-12-01 00:02:27.493	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:28.494	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360150478626612"}
+2023-12-01 00:02:28.522	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:29.523	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360149980912333"}
+2023-12-01 00:02:29.545	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:30.546	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360152621588047"}
+2023-12-01 00:02:30.567	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:31.567	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360155308266066"}
+2023-12-01 00:02:31.595	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:32.596	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360154155705137"}
+2023-12-01 00:02:32.622	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:33.623	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360157012531152"}
+2023-12-01 00:02:33.647	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:34.648	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360158392447035"}
+2023-12-01 00:02:34.673	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:35.674	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360159817241294"}
+2023-12-01 00:02:35.703	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:36.703	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360160085493642"}
+2023-12-01 00:02:36.729	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:37.729	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360159078640187"}
+2023-12-01 00:02:37.755	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:38.755	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360161361115545"}
+2023-12-01 00:02:38.783	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:39.783	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360161627205681"}
+2023-12-01 00:02:39.812	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:40.813	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360162080939388"}
+2023-12-01 00:02:40.839	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:41.839	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360163415097914"}
+2023-12-01 00:02:41.866	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:42.219	[34mINFO[0m	[34m[PID:4147536][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701360163954722153", "goroutine ID:": 39}
+2023-12-01 00:02:42.221	[31mERROR[0m	[31m[PID:4147536][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701360163954722153", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-12-01 00:02:42.867	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360163239900654"}
+2023-12-01 00:02:42.888	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:43.890	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360164043276844"}
+2023-12-01 00:02:43.920	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:44.922	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360168218565676"}
+2023-12-01 00:02:44.947	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:45.949	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360167266104719"}
+2023-12-01 00:02:45.977	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:46.979	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360169323341429"}
+2023-12-01 00:02:47.004	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:48.006	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360168975770588"}
+2023-12-01 00:02:48.038	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:49.039	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360169270731197"}
+2023-12-01 00:02:49.065	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:50.067	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360173465565800"}
+2023-12-01 00:02:50.089	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:02:51.091	[37mDEBUG[0m	[37m[PID:4147536][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360173601524639"}
+2023-12-01 00:02:51.118	[33mWARN[0m	[33m[PID:4147536][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:13.264	[34mINFO[0m	[34m[PID:4148355][0m	[open_im_sdk/init_login.go:73]	InitSDK info	{"operationID": "12345", "config": {"platformID":2,"apiAddr":"http://14.29.168.56:10002","wsAddr":"ws://14.29.168.56:10001","dataDir":"./","logLevel":5,"isLogStandardOutput":true,"logFilePath":"./","isExternalExtensions":true}, "sdkVersion": "openim-sdk-core-v3.0.0"}
+2023-12-01 00:03:13.267	[34mINFO[0m	[34m[PID:4148355][0m	[open_im_sdk/util.go:104]	call function	{"operationID": "12345", "in sdk args": ["openIM123","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"]}
+2023-12-01 00:03:13.267	[34mINFO[0m	[34m[PID:4148355][0m	[open_im_sdk/util.go:116]	input req	{"operationID": "12345", "function name": "open_im_sdk/internal/login.(*LoginMgr).Login-fm", "args": ["openIM123","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"]}
+2023-12-01 00:03:13.267	[34mINFO[0m	[34m[PID:4148355][0m	[login/init_login.go:263]	login start... 	{"operationID": "12345", "userID": "openIM123", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU0xMjMiLCJQbGF0Zm9ybUlEIjo2LCJleHAiOjE3MDkxMjQ2NzYsIm5iZiI6MTcwMTM0ODM3NiwiaWF0IjoxNzAxMzQ4Njc2fQ.EqlV5TlpiElYhUOHCEcSrZOWi9ldrUMR1L4q0blvxs0"}
+2023-12-01 00:03:13.268	[34mINFO[0m	[34m[PID:4148355][0m	[db/db_init.go:170]	sqlite	{"operationID": "12345", "path": "/root/openim/openim-sdk-core/cpp_wrapper/OpenIM_v3_openIM123.db"}
+2023-12-01 00:03:13.269	[37mDEBUG[0m	[37m[PID:4148355][0m	[db/db_init.go:182]	open db success	{"operationID": "12345", "dbFileName": "/root/openim/openim-sdk-core/cpp_wrapper/OpenIM_v3_openIM123.db"}
+2023-12-01 00:03:13.283	[37mDEBUG[0m	[37m[PID:4148355][0m	[login/init_login.go:272]	NewDataBase ok	{"operationID": "12345", "userID": "openIM123", "dataDir": "./", "login cost time": 0.015622679}
+2023-12-01 00:03:13.284	[37mDEBUG[0m	[37m[PID:4148355][0m	[login/init_login.go:289]	forcedSynchronization success...	{"operationID": "12345", "login cost time: ": 0.016084764}
+2023-12-01 00:03:13.284	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:271]	heartbeat start	{"operationID": "12345", "goroutine ID:": 34}
+2023-12-01 00:03:13.284	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:223]	writePump start	{"operationID": "12345", "goroutine ID:": 33}
+2023-12-01 00:03:13.284	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/msg_sync.go:90]	loadSeq	{"operationID": "12345", "syncedMaxSeqs": {}}
+2023-12-01 00:03:13.285	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:164]	readPump start	{"operationID": "12345", "goroutine ID:": 32}
+2023-12-01 00:03:13.285	[34mINFO[0m	[34m[PID:4148355][0m	[login/init_login.go:330]	login success...	{"operationID": "12345", "login cost time: ": 0.017316623}
+2023-12-01 00:03:13.286	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360195552525557"}
+2023-12-01 00:03:13.312	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:14.312	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360195798538456"}
+2023-12-01 00:03:14.336	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:15.336	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360199274834035"}
+2023-12-01 00:03:15.359	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:16.360	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360199251741432"}
+2023-12-01 00:03:16.384	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:17.384	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360198021909734"}
+2023-12-01 00:03:17.411	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:18.411	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360201841010547"}
+2023-12-01 00:03:18.435	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:19.435	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360202246380358"}
+2023-12-01 00:03:19.462	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:20.462	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360204640052239"}
+2023-12-01 00:03:20.490	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:21.490	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360202044571142"}
+2023-12-01 00:03:21.514	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}
+2023-12-01 00:03:22.514	[37mDEBUG[0m	[37m[PID:4148355][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701360206471514004"}
+2023-12-01 00:03:22.542	[33mWARN[0m	[33m[PID:4148355][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 14.29.168.56:10001: connect: connection refused"}

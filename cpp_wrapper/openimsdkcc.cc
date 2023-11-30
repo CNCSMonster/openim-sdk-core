@@ -531,7 +531,7 @@ public:
   static OpenIMManager& GetInstance();
 
   //must be called before use sdk
-  GoInt8 InitSDK(const std::function<void(int,const std::string&)>& cCallback,const std::string& operationID,const std::string& config);
+  bool InitSDK(const std::function<void(int,const std::string&)>& cCallback,const std::string& operationID,const std::string& config);
 
   void UnInitSDK(const std::string& operationID);
 
@@ -838,12 +838,15 @@ OpenIMManager& OpenIMManager::GetInstance()
 }
 
 // must be called before use sdk
-GoInt8 OpenIMManager::InitSDK(const std::function<void(int,const std::string&)>& cCallback, const std::string &operationID, const std::string &config)
+bool OpenIMManager::InitSDK(const std::function<void(int,const std::string&)>& cCallback, const std::string &operationID, const std::string &config)
 {
   char *operationID_cs = const_cast<char *>(operationID.c_str());
   char *config_cs = const_cast<char *>(config.c_str());
-  return init_sdk(_wrapper_cpp_function(cCallback), operationID_cs, config_cs);
+  int  ret=init_sdk(_wrapper_cpp_function(cCallback), operationID_cs, config_cs);
+  return (ret&1)==1;
 }
+
+
 
 // release resouces used by SDK
 void OpenIMManager::UnInitSDK(const std::string &operationID)
