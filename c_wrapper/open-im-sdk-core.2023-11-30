@@ -1,0 +1,44 @@
+2023-11-30 11:03:53.621	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/init_login.go:73]	InitSDK info	{"operationID": "12345", "config": {"platformID":2,"apiAddr":"http://125.124.195.201:10002","wsAddr":"ws://125.124.195.201:10001","dataDir":"./","logLevel":5,"isLogStandardOutput":true,"logFilePath":"./","isExternalExtensions":true}, "sdkVersion": "openim-sdk-core-v3.0.0"}
+2023-11-30 11:03:53.622	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:104]	call function	{"operationID": "12345", "in sdk args": ["4365007572","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI0MzY1MDA3NTcyIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzAyNjk4NTkzLCJuYmYiOjE2OTQ5MjIyOTMsImlhdCI6MTY5NDkyMjU5M30.2Bp8lMgIWXZdPp4J_BWGqJ14gQqiHxGiICxfxrgAq-A"]}
+2023-11-30 11:03:53.622	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:116]	input req	{"operationID": "12345", "function name": "open_im_sdk/internal/login.(*LoginMgr).Login-fm", "args": ["4365007572","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI0MzY1MDA3NTcyIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzAyNjk4NTkzLCJuYmYiOjE2OTQ5MjIyOTMsImlhdCI6MTY5NDkyMjU5M30.2Bp8lMgIWXZdPp4J_BWGqJ14gQqiHxGiICxfxrgAq-A"]}
+2023-11-30 11:03:53.622	[34mINFO[0m	[34m[PID:4060249][0m	[login/init_login.go:263]	login start... 	{"operationID": "12345", "userID": "4365007572", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI0MzY1MDA3NTcyIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzAyNjk4NTkzLCJuYmYiOjE2OTQ5MjIyOTMsImlhdCI6MTY5NDkyMjU5M30.2Bp8lMgIWXZdPp4J_BWGqJ14gQqiHxGiICxfxrgAq-A"}
+2023-11-30 11:03:53.622	[34mINFO[0m	[34m[PID:4060249][0m	[db/db_init.go:170]	sqlite	{"operationID": "12345", "path": "/root/openim/openim-sdk-core/c_wrapper/OpenIM_v3_4365007572.db"}
+2023-11-30 11:03:53.623	[37mDEBUG[0m	[37m[PID:4060249][0m	[db/db_init.go:182]	open db success	{"operationID": "12345", "dbFileName": "/root/openim/openim-sdk-core/c_wrapper/OpenIM_v3_4365007572.db"}
+2023-11-30 11:03:53.922	[37mDEBUG[0m	[37m[PID:4060249][0m	[login/init_login.go:272]	NewDataBase ok	{"operationID": "12345", "userID": "4365007572", "dataDir": "./", "login cost time": 0.299792867}
+2023-11-30 11:03:53.922	[37mDEBUG[0m	[37m[PID:4060249][0m	[login/init_login.go:289]	forcedSynchronization success...	{"operationID": "12345", "login cost time: ": 0.300244006}
+2023-11-30 11:03:53.923	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:223]	writePump start	{"operationID": "12345", "goroutine ID:": 40}
+2023-11-30 11:03:53.923	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:271]	heartbeat start	{"operationID": "12345", "goroutine ID:": 41}
+2023-11-30 11:03:53.923	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:164]	readPump start	{"operationID": "12345", "goroutine ID:": 39}
+2023-11-30 11:03:53.924	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313438092288075"}
+2023-11-30 11:03:53.925	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/msg_sync.go:90]	loadSeq	{"operationID": "12345", "syncedMaxSeqs": {}}
+2023-11-30 11:03:53.926	[34mINFO[0m	[34m[PID:4060249][0m	[login/init_login.go:330]	login success...	{"operationID": "12345", "login cost time: ": 0.303359204}
+2023-11-30 11:04:03.622	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:247]	input req	{"operationID": "12345,create", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).CreateTextMessage-fm", "args": ["哈哈"]}
+2023-11-30 11:04:03.623	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:104]	call function	{"operationID": "12345,get_all_conversation_list", "in sdk args": null}
+2023-11-30 11:04:03.623	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:116]	input req	{"operationID": "12345,get_all_conversation_list", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).GetAllConversationList-fm", "args": null}
+2023-11-30 11:04:03.623	[34mINFO[0m	[34m[PID:4060249][0m	[open_im_sdk/util.go:187]	output resp	{"operationID": "12345,get_all_conversation_list", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).GetAllConversationList-fm", "resp": [], "cost time": 0.000426087}
+2023-11-30 11:04:20.944	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313464253703124", "goroutine ID:": 41}
+2023-11-30 11:04:20.945	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313464253703124", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:04:38.925	[33mWARN[0m	[33m[PID:4060249][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 125.124.195.201:10001: i/o timeout"}
+2023-11-30 11:04:39.925	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313483916034008"}
+2023-11-30 11:04:47.930	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313491442293633", "goroutine ID:": 41}
+2023-11-30 11:04:47.930	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313491442293633", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:05:14.949	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313518312633786", "goroutine ID:": 41}
+2023-11-30 11:05:14.949	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313518312633786", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:05:24.933	[33mWARN[0m	[33m[PID:4060249][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 125.124.195.201:10001: i/o timeout"}
+2023-11-30 11:05:25.934	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313528441255790"}
+2023-11-30 11:05:41.939	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313542268335215", "goroutine ID:": 41}
+2023-11-30 11:05:41.939	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313542268335215", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:06:08.923	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313569071489249", "goroutine ID:": 41}
+2023-11-30 11:06:08.924	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313569071489249", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:06:10.935	[33mWARN[0m	[33m[PID:4060249][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 125.124.195.201:10001: i/o timeout"}
+2023-11-30 11:06:11.935	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313574691759154"}
+2023-11-30 11:06:35.923	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313596763728178", "goroutine ID:": 41}
+2023-11-30 11:06:35.923	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313596763728178", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:06:56.956	[33mWARN[0m	[33m[PID:4060249][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 125.124.195.201:10001: i/o timeout"}
+2023-11-30 11:06:57.956	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313620037673223"}
+2023-11-30 11:07:02.926	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313623410313110", "goroutine ID:": 41}
+2023-11-30 11:07:02.926	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313623410313110", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:07:29.946	[34mINFO[0m	[34m[PID:4060249][0m	[interaction/long_conn_mgr.go:308]	ping and getMaxSeq start	{"operationID": "1701313652537264661", "goroutine ID:": 41}
+2023-11-30 11:07:29.946	[31mERROR[0m	[31m[PID:4060249][0m	[interaction/long_conn_mgr.go:322]	sendAndWaitResp	{"operationID": "1701313652537264661", "error": "connection closed,conning...: 10000 NetworkError"}
+2023-11-30 11:07:42.961	[33mWARN[0m	[33m[PID:4060249][0m	[interaction/long_conn_mgr.go:178]	reConn	{"error": "dial tcp 125.124.195.201:10001: i/o timeout"}
+2023-11-30 11:07:43.961	[37mDEBUG[0m	[37m[PID:4060249][0m	[interaction/long_conn_mgr.go:485]	conn start	{"operationID": "1701313667142861205"}

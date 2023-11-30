@@ -5,7 +5,6 @@
 #include <functional>
 #include <string>
 
-
 class OpenIMManager
 {
 private:

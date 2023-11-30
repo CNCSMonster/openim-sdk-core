@@ -523,7 +523,9 @@ namespace {
 class OpenIMManager
 {
 private:
-OpenIMManager();
+OpenIMManager(){
+  //do nothing
+}
 public:
   // instance pattern
   static OpenIMManager& GetInstance();
@@ -829,7 +831,7 @@ public:
 // must be called before use sdk
 
 // instance pattern
-OpenIMManager &OpenIMManager::GetInstance()
+OpenIMManager& OpenIMManager::GetInstance()
 {
   static OpenIMManager instance;
   return instance;
