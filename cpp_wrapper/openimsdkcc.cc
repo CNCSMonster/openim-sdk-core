@@ -291,7 +291,7 @@ namespace {
     };
   }
 
-  // init function
+  // init global function pointer array
   void init(){
     _generate_cb_s<MAX_NUM_OF_CB_S-1>();
     _generate_cb_i_s<MAX_NUM_OF_CB_I_S-1>();
@@ -335,8 +335,6 @@ namespace {
     // get a available cb_i_s function index
     int get_cb_i_s_index(){
       std::lock_guard<std::mutex> lock(_cb_i_s_mutex);
-      // 找到第一个为0的下标
-      _cb_i_s_bitmap.size();
       int index=-1;
       for(int i=0;i<_cb_i_s_bitmap.size();i++){
         if(_cb_i_s_bitmap[i]==0){
@@ -350,8 +348,6 @@ namespace {
     // get a available cb_s_i_s_s function index
     int get_cb_s_i_s_s_index(){
       std::lock_guard<std::mutex> lock(_cb_s_i_s_s_mutex);
-      // 找到第一个为0的下标
-      _cb_s_i_s_s_bitmap.size();
       int index=-1;
       for(int i=0;i<_cb_s_i_s_s_bitmap.size();i++){
         if(_cb_s_i_s_s_bitmap[i]==0){
@@ -365,8 +361,6 @@ namespace {
     // get a available cb_s_i_s_s_i function index
     int get_cb_s_i_s_s_i_index(){
       std::lock_guard<std::mutex> lock(_cb_s_i_s_s_i_mutex);
-      // 找到第一个为0的下标
-      _cb_s_i_s_s_i_bitmap.size();
       int index=-1;
       for(int i=0;i<_cb_s_i_s_s_i_bitmap.size();i++){
         if(_cb_s_i_s_s_i_bitmap[i]==0){
@@ -532,24 +526,12 @@ private:
 OpenIMManager();
 public:
   // instance pattern
-  static OpenIMManager& GetInstance()
-  {
-    static OpenIMManager instance;
-    return instance;
-  }
+  static OpenIMManager& GetInstance();
 
   //must be called before use sdk
-  GoInt8 InitSDK(const std::function<void(int, std::string)>& cCallback,const std::string& operationID,const std::string& config)
-  {
-    char* operationID_cs=const_cast<char*>(operationID.c_str());
-    char* config_cs=const_cast<char*>(config.c_str());
-    return init_sdk(_wrapper_cpp_function(cCallback),operationID_cs , config_cs);
-  }
+  GoInt8 InitSDK(const std::function<void(int, std::string)>& cCallback,const std::string& operationID,const std::string& config);
 
-  void UnInitSDK(const std::string& operationID){
-    char* operationID_cs=const_cast<char*>(operationID.c_str());
-    return un_init_sdk(operationID_cs);
-  }
+  void UnInitSDK(const std::string& operationID);
 
   // // set print
   // void SetPrint(const std::function<void(const std::string&)>& printCallBack);
@@ -842,6 +824,33 @@ public:
   void IsJoinGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
 
 };
+
+// // ===================================================== init ===============================================
+// must be called before use sdk
+
+// instance pattern
+OpenIMManager &OpenIMManager::GetInstance()
+{
+  static OpenIMManager instance;
+  return instance;
+}
+
+// must be called before use sdk
+GoInt8 OpenIMManager::InitSDK(const std::function<void(int, std::string)> &cCallback, const std::string &operationID, const std::string &config)
+{
+  char *operationID_cs = const_cast<char *>(operationID.c_str());
+  char *config_cs = const_cast<char *>(config.c_str());
+  return init_sdk(_wrapper_cpp_function(cCallback), operationID_cs, config_cs);
+}
+
+// release resouces used by SDK
+void OpenIMManager::UnInitSDK(const std::string &operationID)
+{
+  // TODO: free all functions in function pool
+
+  char *operationID_cs = const_cast<char *>(operationID.c_str());
+  return un_init_sdk(operationID_cs);
+}
 
 // // ===================================================== set listener ===============================================
 // impl for set listener, this callback function will be keep in memory,until call SetXXXListener again
