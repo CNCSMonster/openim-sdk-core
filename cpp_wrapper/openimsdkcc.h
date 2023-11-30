@@ -14,7 +14,7 @@ public:
   static OpenIMManager& GetInstance();
 
   //must be called before use sdk
-  GoInt8 InitSDK(const std::function<void(int, std::string)>& cCallback,const std::string& operationID,const std::string& config);
+  GoInt8 InitSDK(const std::function<void(int, const std::string&)>& cCallback,const std::string& operationID,const std::string& config);
 
   void UnInitSDK(const std::string& operationID);
 
