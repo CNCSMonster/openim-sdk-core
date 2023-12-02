@@ -518,6 +518,8 @@ namespace {
 
 }
 
+namespace openim {
+  //define namespace for cpp wrapper
 
 
 class OpenIMManager
@@ -1542,3 +1544,5 @@ void OpenIMManager::SetGroupVerification(const std::function<void(const std::str
   set_group_verification(_wrapper_callonce_cpp_function(callback),operationID_cs,groupID_cs,verification);
 }
 
+
+}

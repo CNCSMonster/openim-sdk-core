@@ -4,9 +4,9 @@
 #include <chrono>
 #include "openimsdkcc.h"
 using namespace std;
+using namespace openim;
 
-
-// cpp代码使用c_wrapper的函数编译成的动态库
+// simple test
 int main(){
   auto sdkMgr = OpenIMManager::GetInstance();
   string operationID="12345";
@@ -28,7 +28,6 @@ int main(){
     cout<<"login> " <<"operationID: "<<operationID<<" ,errCode: "<<errCode << "errMsg: "<<errMsg<< ", data: "<<data<<endl; 
   },operationID,uid,token);
   std::this_thread::sleep_for(std::chrono::seconds(10));
-
 
   // can only execute below function after login
   string loginUserID=sdkMgr.GetLoginUser();

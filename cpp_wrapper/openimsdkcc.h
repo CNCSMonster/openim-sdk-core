@@ -5,6 +5,8 @@
 #include <functional>
 #include <string>
 
+namespace openim{
+
 class OpenIMManager
 {
 private:
@@ -309,5 +311,7 @@ public:
   void IsJoinGroup(const std::function<void(const std::string&, int, const std::string&, const std::string&)>& callback, const std::string& operationID, const std::string& groupID);
 
 };
+
+}
 
 #endif // OPENIMSDKCPP_H
