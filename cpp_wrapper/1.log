@@ -1,6 +1,0 @@
-init log success
-2023-11-30 23:38:39.335	[34mINFO[0m	[34m[PID:4145008][0m	[open_im_sdk/init_login.go:73]	InitSDK info	{"operationID": "12345", "config": {"platformID":2,"apiAddr":"http://14.29.168.56:10002","wsAddr":"ws://14.29.168.56:10001","dataDir":"./","logLevel":5,"isLogStandardOutput":true,"logFilePath":"./","isExternalExtensions":true}, "sdkVersion": "openim-sdk-core-v3.0.0"}
-init_result:1
-loginUserID:
-2023-11-30 23:38:39.336	[34mINFO[0m	[34m[PID:4145008][0m	[open_im_sdk/util.go:247]	input req	{"operationID": "12345,create", "function name": "open_im_sdk/internal/conversation_msg.(*Conversation).CreateTextMessage-fm", "args": ["CCM"]}
-fnv: 0x7f896706eac0 ins: [<*context.valueCtx Value> CCM]
